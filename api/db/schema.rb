@@ -48,11 +48,12 @@ ActiveRecord::Schema.define(version: 2020_08_09_081039) do
     t.string "photo_url"
     t.boolean "is_private", default: false, null: false
     t.bigint "user_creator_id", null: false
-    t.bigint "organization_id", null: false
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name", "organization_id"], name: "index_projects_projects_on_name_and_organization_id", unique: true
-    t.index ["organization_id"], name: "index_projects_projects_on_organization_id"
+    t.index ["name", "owner_id"], name: "index_projects_projects_on_name_and_owner_id", unique: true
+    t.index ["owner_type", "owner_id"], name: "index_projects_projects_on_owner_type_and_owner_id"
     t.index ["user_creator_id"], name: "index_projects_projects_on_user_creator_id"
   end
 
@@ -60,5 +61,4 @@ ActiveRecord::Schema.define(version: 2020_08_09_081039) do
   add_foreign_key "projects_issues", "accounts_users", column: "user_creator_id"
   add_foreign_key "projects_issues", "projects_projects", column: "project_id"
   add_foreign_key "projects_projects", "accounts_users", column: "user_creator_id"
-  add_foreign_key "projects_projects", "organizations_organizations", column: "organization_id"
 end

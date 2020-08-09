@@ -1,13 +1,26 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: Project 1
+tylers:
+  name: Tyler's Project
   photo_url: MyString
   user_creator: tyler
-  organization: two
+  owner: tyler (Accounts::User)
 
-two:
-  name: Project 2
+megans:
+  name: Megans Project
   photo_url: MyString
   user_creator: megan
-  organization: two
+  owner: megan (Accounts::User)
+
+org_ones:
+  name: Org 1's Project
+  photo_url: MyString
+  user_creator: tyler
+  owner: one (Organizations::Organization)
+
+org_twos:
+  name: Org 2's Project
+  photo_url: MyString
+  user_creator: megan
+  owner: two (Organizations::Organization)
+

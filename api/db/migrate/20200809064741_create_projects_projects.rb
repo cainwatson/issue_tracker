@@ -6,11 +6,11 @@ class CreateProjectsProjects < ActiveRecord::Migration[6.0]
       t.boolean :is_private, null: false, default: false
 
       t.references :user_creator, null: false, foreign_key: { to_table: 'accounts_users' }
-      t.references :organization, null: false, foreign_key: { to_table: 'organizations_organizations' }
+      t.references :owner, null: false, polymorphic: true
 
       t.timestamps null: false
 
-      t.index [:name, :organization_id], unique: true
+      t.index [:name, :owner_id], unique: true
     end
   end
 end
