@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+tylers_one:
+  summary: An issue
+  description: MyText
+  user_creator: tyler
+  project: tylers
+  number: 1
+tylers_two:
+  summary: Another issue
+  description: MyText
+  user_creator: tyler
+  project: tylers
+  number: 2
+
+megans_one:
+  summary: Todo
+  description: MyText
+  user_creator: megan
+  project: megans
+  number: 1
+
+org_ones_one:
+  summary: Important bug!
+  description: MyText
+  user_creator: tyler
+  project: org_ones
+  number: 1
+
+org_twos_one:
+  summary: Fix this please
+  description: MyText
+  user_creator: megan
+  project: org_twos
+  number: 1
