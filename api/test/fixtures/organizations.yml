@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Org1
+  photo_url: MyString
+  user_creator: 1
+
+two:
+  name: Org2
+  photo_url: MyString
+  user_creator: 2
