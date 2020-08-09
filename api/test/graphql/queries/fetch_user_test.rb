@@ -12,7 +12,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    user = users[0]
+    user = users(:megan)
     result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.id})
     user_result = result["data"]["user"]
 
@@ -32,7 +32,6 @@ class FetchUserQueryTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    user = users[0]
     result = IssueTrackerSchema.execute(query_string, variables: {"id" => 0})
     user_result = result["data"]["user"]
 
