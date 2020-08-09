@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Acero
+  name: Project 1
   photo_url: MyString
   user_creator: tyler
+  organization: two
 
 two:
-  name: Centizu
+  name: Project 2
   photo_url: MyString
   user_creator: megan
+  organization: two
