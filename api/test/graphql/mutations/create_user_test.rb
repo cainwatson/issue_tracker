@@ -3,7 +3,7 @@ require "test_helper"
 class CreateUserMutationTest < ActiveSupport::TestCase
   test "returns created user" do
     query_string = <<-GRAPHQL
-      mutation create_user($input: CreateUserInput!) {
+      mutation createUser($input: CreateUserInput!) {
         createUser(input: $input) {
           errors
           user {
