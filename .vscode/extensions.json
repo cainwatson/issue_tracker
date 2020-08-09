@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "rebornix.Ruby",
+    "dbaeumer.vscode-eslint",
+    "octref.vetur"
+  ]
+}
