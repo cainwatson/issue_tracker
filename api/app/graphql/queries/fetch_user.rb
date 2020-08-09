@@ -5,7 +5,7 @@ module Queries
     argument :id, ID, required: true
 
     def resolve(id:)
-      User.find(id)
+      Accounts::User.find(id)
     rescue ActiveRecord::RecordNotFound => _error
       nil
     end

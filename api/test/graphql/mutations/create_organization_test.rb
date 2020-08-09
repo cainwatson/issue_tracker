@@ -19,7 +19,7 @@ class CreateOrganizationMutationTest < ActiveSupport::TestCase
 
     result = IssueTrackerSchema.execute(query_string, variables: {"input" => {
       "name" => "My New Org",
-      "userCreatorId" => users[0].id
+      "userCreatorId" => accounts_users(:tyler).id
     }})
     create_organization_result = result["data"]["createOrganization"]
 
@@ -27,6 +27,6 @@ class CreateOrganizationMutationTest < ActiveSupport::TestCase
     assert create_organization_result["organization"]["createdAt"]
     assert create_organization_result["organization"]["updatedAt"]
     assert_equal create_organization_result["organization"]["name"], "My New Org"
-    assert_equal create_organization_result["organization"]["userCreatorId"], users[0].id
+    assert_equal create_organization_result["organization"]["userCreatorId"], accounts_users(:tyler).id
   end
 end

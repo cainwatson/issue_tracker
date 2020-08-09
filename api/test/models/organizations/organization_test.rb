@@ -1,8 +1,10 @@
 require 'test_helper'
 
-class OrganizationTest < ActiveSupport::TestCase
+class Organizations::OrganizationTest < ActiveSupport::TestCase
   test "name should be present" do
-    organization = Organization.new(user_creator: users(:tyler))
+    organization = Organizations::Organization.new(
+      user_creator: accounts_users(:tyler),
+    )
     assert organization.invalid?
 
     organization.name = "organization name"
@@ -10,8 +12,10 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test "name should be unique" do
-    existing_organization = organizations(:one)
-    organization = Organization.new(user_creator: users(:tyler), name: existing_organization.name)
+    organization = Organizations::Organization.new(
+      user_creator: accounts_users(:tyler),
+      name: organizations_organizations(:one).name,
+    )
     assert organization.invalid?
 
     organization.name = "unique organization name"

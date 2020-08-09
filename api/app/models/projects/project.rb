@@ -1,6 +1,6 @@
 class Projects::Project < ApplicationRecord
-  belongs_to :user_creator, class_name: "User"
-  belongs_to :organization
+  belongs_to :user_creator, class_name: "Accounts::User"
+  belongs_to :organization, class_name: "Organizations::Organization"
 
   validates :name,
     presence: true,

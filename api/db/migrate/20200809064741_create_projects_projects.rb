@@ -5,8 +5,8 @@ class CreateProjectsProjects < ActiveRecord::Migration[6.0]
       t.string :photo_url, null: true
       t.boolean :is_private, null: false, default: false
 
-      t.references :user_creator, null: false, foreign_key: { to_table: 'users' }
-      t.references :organization, null: false, foreign_key: true
+      t.references :user_creator, null: false, foreign_key: { to_table: 'accounts_users' }
+      t.references :organization, null: false, foreign_key: { to_table: 'organizations_organizations' }
 
       t.timestamps null: false
 

@@ -3,7 +3,7 @@ module Queries
     type [Types::UserType], null: false
 
     def resolve
-      User.all
+      Accounts::User.all
     end
   end
 end

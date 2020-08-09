@@ -6,7 +6,7 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve
-      {user: User.create, errors: []}
+      {user: Accounts::User.create, errors: []}
     end
   end
 end
