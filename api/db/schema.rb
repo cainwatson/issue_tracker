@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_10_023351) do
+ActiveRecord::Schema.define(version: 2020_08_10_024441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 2020_08_10_023351) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_organizations_organizations_on_name", unique: true
     t.index ["user_creator_id"], name: "index_organizations_organizations_on_user_creator_id"
+  end
+
+  create_table "profiles_profiles", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name"
+    t.string "photo_url"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_profiles_profiles_on_user_id"
   end
 
   create_table "projects_issues", force: :cascade do |t|
@@ -72,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_023351) do
   add_foreign_key "organizations_memberships", "accounts_users", column: "user_to_id"
   add_foreign_key "organizations_memberships", "organizations_organizations", column: "organization_id"
   add_foreign_key "organizations_organizations", "accounts_users", column: "user_creator_id"
+  add_foreign_key "profiles_profiles", "accounts_users", column: "user_id"
   add_foreign_key "projects_issues", "accounts_users", column: "user_creator_id"
   add_foreign_key "projects_issues", "projects_projects", column: "project_id"
   add_foreign_key "projects_projects", "accounts_users", column: "user_creator_id"

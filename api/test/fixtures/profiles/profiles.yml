@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+tyler:
+  user: tyler
+  first_name: Tyler
+  last_name: Test
+  photo_url: MyString
+
+megan:
+  user: megan
+  first_name: Megan
+  last_name: Test
+  photo_url: MyString
