@@ -21,4 +21,13 @@ class Organizations::OrganizationTest < ActiveSupport::TestCase
     organization.name = "unique organization name"
     assert organization.valid?
   end
+
+  test "membership should be created for creator" do
+    organization = Organizations::Organization.create(
+      user_creator: accounts_users(:tyler),
+      name: "new organization"
+    )
+    assert_equal organization.memberships.length, 1
+    assert_equal organization.memberships[0].user_to, accounts_users(:tyler)
+  end
 end
