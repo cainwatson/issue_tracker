@@ -16,7 +16,10 @@ class Projects::Issue < ApplicationRecord
   private
     def set_number
       unless self.persisted?
-        last = Projects::Issue.where(["project_id = ?", self.project_id]).last
+        last = Projects::Issue
+          .where(["project_id = ?", self.project_id])
+          .order("number DESC")
+          .first()
         self.number = last ? last.number + 1 : 1
       end
     end
