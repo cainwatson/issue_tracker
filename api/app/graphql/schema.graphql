@@ -70,6 +70,16 @@ type Organization {
   userCreatorId: Int!
 }
 
+type Profile {
+  createdAt: ISO8601DateTime!
+  firstName: String!
+  id: ID!
+  lastName: String
+  photoUrl: String
+  updatedAt: ISO8601DateTime!
+  userId: Int!
+}
+
 type Query {
   user(id: ID!): User
   users: [User!]!
@@ -78,5 +88,6 @@ type Query {
 type User {
   createdAt: ISO8601DateTime!
   id: ID!
+  profile: Profile!
   updatedAt: ISO8601DateTime!
 }
