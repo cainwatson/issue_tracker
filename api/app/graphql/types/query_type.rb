@@ -7,7 +7,5 @@ module Types
     add_field(GraphQL::Types::Relay::NodesField)
 
     field :users, resolver: Queries::FetchUsers
-
-    field :organization, resolver: Queries::FetchOrganization
   end
 end
