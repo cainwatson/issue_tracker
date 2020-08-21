@@ -114,6 +114,7 @@ enum ProjectOwner {
 }
 
 type Query {
+  organization(id: ID!): Organization
   user(id: ID!): User
   users: [User!]!
 }

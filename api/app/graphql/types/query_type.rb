@@ -5,5 +5,7 @@ module Types
 
     field :users, resolver: Queries::FetchUsers
     field :user, resolver: Queries::FetchUser
+
+    field :organization, resolver: Queries::FetchOrganization
   end
 end
