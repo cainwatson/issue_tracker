@@ -17,12 +17,12 @@ class IssueTrackerSchema < GraphQL::Schema
                                      .to_h
 
   # Create UUIDs by joining the type name & ID, then base64-encoding it
-  def self.id_from_object(object, _type_definition, _query_ctx)
+  def self.id_from_object(object, _type_definition = nil, _query_ctx = {})
     GraphQL::Schema::UniqueWithinType.encode(object.class.name, object.id)
   end
 
   # Find object in database using UUID created from `.id_from_object/3`
-  def self.object_from_id(id, _query_ctx)
+  def self.object_from_id(id, _query_ctx = {})
     model_name, object_id = GraphQL::Schema::UniqueWithinType.decode(id)
     model = @models_by_name[model_name]
 
