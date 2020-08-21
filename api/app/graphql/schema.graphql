@@ -49,7 +49,7 @@ An ISO 8601-encoded datetime
 """
 scalar ISO8601DateTime
 
-type Membership {
+type Membership implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
   organization: Organization!
