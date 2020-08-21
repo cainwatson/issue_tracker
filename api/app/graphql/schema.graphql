@@ -91,14 +91,14 @@ type Organization implements Node {
   userCreator: User!
 }
 
-type Profile {
+type Profile implements Node {
   createdAt: ISO8601DateTime!
   firstName: String!
   id: ID!
   lastName: String
   photoUrl: String
   updatedAt: ISO8601DateTime!
-  userId: Int!
+  user: User!
 }
 
 type Project {

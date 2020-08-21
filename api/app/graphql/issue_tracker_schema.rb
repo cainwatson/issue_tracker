@@ -33,6 +33,7 @@ class IssueTrackerSchema < GraphQL::Schema
 
   @types_by_model = {
     Accounts::User => Types::UserType,
+    Profiles::Profile => Types::ProfileType,
     Organizations::Organization => Types::OrganizationType,
     Organizations::Membership => Types::MembershipType,
     Projects::Project => Types::ProjectType,
