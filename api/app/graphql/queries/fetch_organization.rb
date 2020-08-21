@@ -6,7 +6,7 @@ module Queries
 
     def resolve(id:)
       Organizations::Organization.find(id)
-    rescue ActiveRecord::RecordNotFound => _error
+    rescue ActiveRecord::RecordNotFound => _e
       nil
     end
   end

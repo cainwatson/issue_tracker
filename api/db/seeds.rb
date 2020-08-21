@@ -7,15 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 5.times do |num|
-  user = Accounts::User.create()
+  user = Accounts::User.create
   profile = Profiles::Profile.create(
     user: user,
     first_name: "User ##{num}",
-    last_name: "Test",
+    last_name: 'Test'
   )
 end
 
-users = Accounts::User.all().to_a
+users = Accounts::User.all.to_a
 
 organizations = users.map.with_index do |user, index|
   Organizations::Organization.create(

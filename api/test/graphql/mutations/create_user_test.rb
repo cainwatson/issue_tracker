@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class CreateUserMutationTest < ActiveSupport::TestCase
-  test "returns created user" do
+  test 'returns created user' do
     query_string = <<-GRAPHQL
       mutation createUser($input: CreateUserInput!) {
         createUser(input: $input) {
@@ -15,11 +15,11 @@ class CreateUserMutationTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string, variables: {"input" => {}})
-    create_user_result = result["data"]["createUser"]
+    result = IssueTrackerSchema.execute(query_string, variables: { 'input' => {} })
+    create_user_result = result['data']['createUser']
 
-    assert create_user_result["user"]["id"]
-    assert create_user_result["user"]["createdAt"]
-    assert create_user_result["user"]["updatedAt"]
+    assert create_user_result['user']['id']
+    assert create_user_result['user']['createdAt']
+    assert create_user_result['user']['updatedAt']
   end
 end

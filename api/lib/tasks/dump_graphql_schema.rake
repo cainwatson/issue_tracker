@@ -1,5 +1,4 @@
-schema_path = "app/graphql/schema.graphql"
-
+schema_path = 'app/graphql/schema.graphql'
 
 desc "Generates GraphQL Schema and places it in #{schema_path}"
 task dump_graphql_schema: :environment do

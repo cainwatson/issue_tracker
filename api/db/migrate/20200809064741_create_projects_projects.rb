@@ -10,7 +10,7 @@ class CreateProjectsProjects < ActiveRecord::Migration[6.0]
 
       t.timestamps null: false
 
-      t.index [:name, :owner_id], unique: true
+      t.index %i[name owner_id], unique: true
     end
   end
 end
