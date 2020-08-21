@@ -7,5 +7,9 @@ module Types
     field :create_organization,
           mutation: Mutations::CreateOrganization,
           description: 'Create a new organization.'
+
+    field :create_project,
+          mutation: Mutations::CreateProject,
+          description: 'Create a new project.'
   end
 end
