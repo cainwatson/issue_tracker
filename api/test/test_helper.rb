@@ -1,6 +1,8 @@
 ENV['RAILS_ENV'] ||= 'test'
+
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'pp'
 
 module ActiveSupport
   class TestCase
@@ -11,5 +13,12 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def graphql_query(query, options)
+      result = IssueTrackerSchema.execute(query, **options)
+
+      raise GraphQL::ExecutionError, result['errors'].pretty_inspect if result['errors']&.any?
+
+      result
+    end
   end
 end
