@@ -3,6 +3,8 @@ module Projects
     belongs_to :user_creator, class_name: 'Accounts::User'
     belongs_to :owner, polymorphic: true
 
+    has_many :issues, class_name: 'Projects::Issue'
+
     validates :name,
               presence: true,
               uniqueness: {
