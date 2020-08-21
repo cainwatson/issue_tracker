@@ -41,6 +41,8 @@ class IssueTrackerSchema < GraphQL::Schema
       Types::MembershipType
     when Projects::Project
       Types::ProjectType
+    when Projects::Issue
+      Types::IssueType
     else
       raise("Unexpected object: #{obj}")
     end
