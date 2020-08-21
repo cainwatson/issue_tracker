@@ -1,17 +1,19 @@
-class Organizations::Organization < ApplicationRecord
-  belongs_to :user_creator, class_name: 'Accounts::User'
+module Organizations
+  class Organization < ApplicationRecord
+    belongs_to :user_creator, class_name: 'Accounts::User'
 
-  has_many :memberships, class_name: 'Organizations::Membership'
-  has_many :projects, class_name: 'Projects::Project', as: :owner
+    has_many :memberships, class_name: 'Organizations::Membership'
+    has_many :projects, class_name: 'Projects::Project', as: :owner
 
-  validates :name, presence: true, uniqueness: true
+    validates :name, presence: true, uniqueness: true
 
-  after_initialize :add_creator_membership
+    after_initialize :add_creator_membership
 
-  private
+    private
 
-  def add_creator_membership
-    unless persisted?
+    def add_creator_membership
+      return if persisted?
+
       memberships.push(
         Organizations::Membership.new(
           user_from: user_creator,

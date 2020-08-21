@@ -1,7 +1,9 @@
 require 'test_helper'
 
-class Profiles::ProfileTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+module Profiles
+  class ProfileTest < ActiveSupport::TestCase
+    # test "the truth" do
+    #   assert true
+    # end
+  end
 end

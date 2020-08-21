@@ -8,7 +8,7 @@
 
 5.times do |num|
   user = Accounts::User.create
-  profile = Profiles::Profile.create(
+  _profile = Profiles::Profile.create(
     user: user,
     first_name: "User ##{num}",
     last_name: 'Test'
