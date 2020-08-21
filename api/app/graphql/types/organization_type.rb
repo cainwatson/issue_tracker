@@ -9,8 +9,8 @@ module Types
 
     field :name, String, null: false
     field :photo_url, String, null: true
-    field :user_creator_id, Integer, null: false
 
+    field :user_creator, Types::UserType, null: false
     field :memberships, [Types::MembershipType], null: false
     field :projects, [Types::ProjectType], null: false
   end

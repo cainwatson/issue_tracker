@@ -88,7 +88,7 @@ type Organization implements Node {
   photoUrl: String
   projects: [Project!]!
   updatedAt: ISO8601DateTime!
-  userCreatorId: Int!
+  userCreator: User!
 }
 
 type Profile {

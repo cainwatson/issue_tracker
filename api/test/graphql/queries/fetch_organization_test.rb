@@ -1,16 +1,37 @@
 require 'test_helper'
 
 class FetchOrganizationQueryTest < ActiveSupport::TestCase
+  test 'returns null with invalid id' do
+    query_string = <<-GRAPHQL
+      query fetchOrganization($id: ID!) {
+        node(id: $id) {
+          ...on Organization {
+            id
+            createdAt
+            updatedAt
+            name
+            photoUrl
+          }
+        }
+      }
+    GRAPHQL
+
+    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => 'invalid' })
+    organization_result = result['data']['node']
+
+    assert_nil organization_result
+  end
+
   test 'returns organization with id' do
     query_string = <<-GRAPHQL
       query fetchOrganization($id: ID!) {
         node(id: $id) {
           ...on Organization {
             id
-            name
-            photoUrl
             createdAt
             updatedAt
+            name
+            photoUrl
           }
         }
       }
@@ -27,25 +48,30 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
     assert_equal organization_result['photoUrl'], organization.photo_url
   end
 
-  test 'returns null with invalid id' do
+  test 'returns organization with user creator' do
     query_string = <<-GRAPHQL
       query fetchOrganization($id: ID!) {
         node(id: $id) {
           ...on Organization {
             id
-            name
-            photoUrl
             createdAt
             updatedAt
+            name
+            photoUrl
+            userCreator {
+              id
+            }
           }
         }
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => 'invalid' })
+    organization = organizations_organizations(:one)
+    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
-    assert_nil organization_result
+    assert organization_result['userCreator']
+    assert organization_result['userCreator']['id']
   end
 
   test 'returns organization with projects' do
@@ -57,11 +83,6 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
             projects {
               id
               name
-              photoUrl
-              isPrivate
-              ownerType
-              createdAt
-              updatedAt
             }
           }
         }
@@ -73,16 +94,14 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
     result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
+    assert_equal organization_result['projects'].length, organization.projects.length
+
     organization.projects.each_with_index do |project, index|
       project_result = organization_result['projects'][index]
 
+      assert project_result
       assert project_result['id']
-      assert project_result['createdAt']
-      assert project_result['updatedAt']
-      assert_equal project_result['ownerType'], 'ORGANIZATION'
       assert_equal project_result['name'], project.name
-      assert_equal project_result['photoUrl'], project.photo_url
-      assert_equal project_result['isPrivate'], project.is_private
     end
   end
 
@@ -94,17 +113,6 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
             id
             memberships {
               id
-              createdAt
-              updatedAt
-              userFrom {
-                id
-              }
-              userTo {
-                id
-              }
-              organization {
-                id
-              }
             }
           }
         }
@@ -116,15 +124,13 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
     result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
-    organization.memberships.each_with_index do |_membership, index|
-      membership_result = organization_result['memberships'][index]
+    assert_equal organization_result['memberships'].length, organization.memberships.length
 
-      assert membership_result['id']
-      assert membership_result['userFrom']
-      assert membership_result['userTo']
-      assert membership_result['organization']
-      assert membership_result['createdAt']
-      assert membership_result['updatedAt']
+    organization.memberships.each_with_index do |_project, index|
+      project_result = organization_result['memberships'][index]
+
+      assert project_result
+      assert project_result['id']
     end
   end
 end
