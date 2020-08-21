@@ -11,6 +11,7 @@ module Types
     field :photo_url, String, null: true
     field :user_creator_id, Integer, null: false
 
+    field :memberships, [Types::MembershipType], null: false
     field :projects, [Types::ProjectType], null: false
   end
 end

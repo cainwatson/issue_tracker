@@ -83,6 +83,7 @@ interface Node {
 type Organization implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
+  memberships: [Membership!]!
   name: String!
   photoUrl: String
   projects: [Project!]!

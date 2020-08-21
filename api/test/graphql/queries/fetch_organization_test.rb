@@ -85,4 +85,46 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
       assert_equal project_result['isPrivate'], project.is_private
     end
   end
+
+  test 'returns organization with memberships' do
+    query_string = <<-GRAPHQL
+      query fetchOrganizationMemberships($id: ID!) {
+        node(id: $id) {
+          ...on Organization {
+            id
+            memberships {
+              id
+              createdAt
+              updatedAt
+              userFrom {
+                id
+              }
+              userTo {
+                id
+              }
+              organization {
+                id
+              }
+            }
+          }
+        }
+      }
+    GRAPHQL
+
+    organization = organizations_organizations(:one)
+
+    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
+    organization_result = result['data']['node']
+
+    organization.memberships.each_with_index do |_membership, index|
+      membership_result = organization_result['memberships'][index]
+
+      assert membership_result['id']
+      assert membership_result['userFrom']
+      assert membership_result['userTo']
+      assert membership_result['organization']
+      assert membership_result['createdAt']
+      assert membership_result['updatedAt']
+    end
+  end
 end
