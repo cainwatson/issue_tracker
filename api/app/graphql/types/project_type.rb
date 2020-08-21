@@ -10,6 +10,7 @@ module Types
     field :name, String, null: false
     field :photo_url, String, null: true
     field :is_private, Boolean, null: false
+    field :owner_type, Types::ProjectOwnerCategory, null: false
 
     field :owner, Types::ProjectOwner, null: false
     field :user_creator, Types::UserType, null: false
