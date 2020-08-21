@@ -49,6 +49,15 @@ An ISO 8601-encoded datetime
 """
 scalar ISO8601DateTime
 
+type Membership {
+  createdAt: ISO8601DateTime!
+  id: ID!
+  organization: Organization!
+  updatedAt: ISO8601DateTime!
+  userFrom: User!
+  userTo: User!
+}
+
 type Mutation {
   """
   Create a new organization.
@@ -80,6 +89,30 @@ type Profile {
   userId: Int!
 }
 
+type Project {
+  createdAt: ISO8601DateTime!
+  id: ID!
+  isPrivate: Boolean!
+  name: String!
+  ownerId: Int!
+  ownerType: ProjectOwner!
+  photoUrl: String
+  updatedAt: ISO8601DateTime!
+  userCreatorId: Int!
+}
+
+enum ProjectOwner {
+  """
+  A user account owns the project.
+  """
+  ACCOUNT
+
+  """
+  An organization owns the project.
+  """
+  ORGANIZATION
+}
+
 type Query {
   user(id: ID!): User
   users: [User!]!
@@ -88,6 +121,8 @@ type Query {
 type User {
   createdAt: ISO8601DateTime!
   id: ID!
+  memberships: [Membership!]!
   profile: Profile!
+  projects: [Project!]!
   updatedAt: ISO8601DateTime!
 }
