@@ -75,6 +75,7 @@ type Organization {
   id: ID!
   name: String!
   photoUrl: String
+  projects: [Project!]!
   updatedAt: ISO8601DateTime!
   userCreatorId: Int!
 }

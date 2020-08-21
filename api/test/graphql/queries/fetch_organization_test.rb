@@ -43,4 +43,40 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
 
     assert_nil organization_result
   end
+
+  test "returns organization with projects" do
+    query_string = <<-GRAPHQL
+      query fetchOrganizationProjects($id: ID!) {
+        organization(id: $id) {
+          id
+          projects {
+            id
+            name
+            photoUrl
+            isPrivate
+            ownerType
+            createdAt
+            updatedAt
+          }
+        }
+      }
+    GRAPHQL
+
+    organization = organizations_organizations(:one)
+
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => organization.id})
+    organization_result = result["data"]["organization"]
+
+    organization.projects.each_with_index do |project, index|
+      project_result = organization_result["projects"][index]
+
+      assert project_result["id"]
+      assert project_result["createdAt"]
+      assert project_result["updatedAt"]
+      assert_equal project_result["ownerType"], "ORGANIZATION"
+      assert_equal project_result["name"], project.name
+      assert_equal project_result["photoUrl"], project.photo_url
+      assert_equal project_result["isPrivate"], project.is_private
+    end
+  end
 end
