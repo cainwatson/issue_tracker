@@ -26,6 +26,8 @@ class IssueTrackerSchema < GraphQL::Schema
     model = @models_by_name[model_name]
 
     model && model.find(object_id)
+  rescue
+    nil
   end
 
   # For telling the schema what type Relay `Node` objects are
