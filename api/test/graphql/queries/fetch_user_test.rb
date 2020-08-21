@@ -4,36 +4,40 @@ class FetchUserQueryTest < ActiveSupport::TestCase
   test "returns user with id" do
     query_string = <<-GRAPHQL
       query fetchUser($id: ID!) {
-        user(id: $id) {
-          id
-          createdAt
-          updatedAt
+        node(id: $id) {
+          ...on User {
+            id
+            createdAt
+            updatedAt
+          }
         }
       }
     GRAPHQL
 
     user = accounts_users(:megan)
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.id})
-    user_result = result["data"]["user"]
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.node_id})
+    user_result = result["data"]["node"]
 
-    assert_equal user_result["id"], user.id.to_s
-    assert_equal user_result["createdAt"], user.created_at.iso8601
-    assert_equal user_result["updatedAt"], user.updated_at.iso8601
+    assert user_result["id"]
+    assert user_result["createdAt"]
+    assert user_result["updatedAt"]
   end
 
   test "returns null with invalid id" do
     query_string = <<-GRAPHQL
       query fetchUser($id: ID!) {
-        user(id: $id) {
-          id
-          createdAt
-          updatedAt
+        node(id: $id) {
+          ...on User {
+            id
+            createdAt
+            updatedAt
+          }
         }
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => 0})
-    user_result = result["data"]["user"]
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => "invalid"})
+    user_result = result["data"]["node"]
 
     assert_nil user_result
   end
@@ -41,15 +45,17 @@ class FetchUserQueryTest < ActiveSupport::TestCase
   test "returns user with profile" do
     query_string = <<-GRAPHQL
       query fetchUserProfile($id: ID!) {
-        user(id: $id) {
-          id
-          profile {
+        node(id: $id) {
+          ...on User {
             id
-            firstName
-            lastName
-            photoUrl
-            createdAt
-            updatedAt
+            profile {
+              id
+              firstName
+              lastName
+              photoUrl
+              createdAt
+              updatedAt
+            }
           }
         }
       }
@@ -58,30 +64,32 @@ class FetchUserQueryTest < ActiveSupport::TestCase
     user = accounts_users(:megan)
     user_profile = profiles_profiles(:megan)
 
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.id})
-    user_result = result["data"]["user"]
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.node_id})
+    user_result = result["data"]["node"]
 
-    assert_equal user_result["profile"]["id"], user_profile.id.to_s
+    assert user_result["profile"]["id"]
+    assert user_result["profile"]["createdAt"]
+    assert user_result["profile"]["updatedAt"]
     assert_equal user_result["profile"]["firstName"], user_profile.first_name
     assert_equal user_result["profile"]["lastName"], user_profile.last_name
     assert_equal user_result["profile"]["photoUrl"], user_profile.photo_url
-    assert user_result["profile"]["createdAt"]
-    assert user_result["profile"]["updatedAt"]
   end
 
   test "returns user with projects" do
     query_string = <<-GRAPHQL
       query fetchUserProjects($id: ID!) {
-        user(id: $id) {
-          id
-          projects {
+        node(id: $id) {
+          ...on User {
             id
-            name
-            photoUrl
-            isPrivate
-            ownerType
-            createdAt
-            updatedAt
+            projects {
+              id
+              name
+              photoUrl
+              isPrivate
+              ownerType
+              createdAt
+              updatedAt
+            }
           }
         }
       }
@@ -89,8 +97,8 @@ class FetchUserQueryTest < ActiveSupport::TestCase
 
     user = accounts_users(:megan)
 
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.id})
-    user_result = result["data"]["user"]
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.node_id})
+    user_result = result["data"]["node"]
 
     user.projects.each_with_index do |project, index|
       project_result = user_result["projects"][index]
@@ -108,24 +116,26 @@ class FetchUserQueryTest < ActiveSupport::TestCase
   test "returns user with memberships" do
     query_string = <<-GRAPHQL
       query fetchUserMemberships($id: ID!) {
-        user(id: $id) {
-          id
-          memberships {
+        node(id: $id) {
+          ...on User {
             id
-            createdAt
-            updatedAt
-            userFrom {
+            memberships {
               id
-            }
-            userTo {
-              id
-            }
-            organization {
-              id
-              name
-              photoUrl
               createdAt
               updatedAt
+              userFrom {
+                id
+              }
+              userTo {
+                id
+              }
+              organization {
+                id
+                name
+                photoUrl
+                createdAt
+                updatedAt
+              }
             }
           }
         }
@@ -134,8 +144,8 @@ class FetchUserQueryTest < ActiveSupport::TestCase
 
     user = accounts_users(:megan)
 
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.id})
-    user_result = result["data"]["user"]
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => user.node_id})
+    user_result = result["data"]["node"]
 
     user.memberships.each_with_index do |membership, index|
       membership_result = user_result["memberships"][index]

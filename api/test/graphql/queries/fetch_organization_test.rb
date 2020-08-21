@@ -4,57 +4,11 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
   test "returns organization with id" do
     query_string = <<-GRAPHQL
       query fetchOrganization($id: ID!) {
-        organization(id: $id) {
-          id
-          name
-          photoUrl
-          createdAt
-          updatedAt
-        }
-      }
-    GRAPHQL
-
-    organization = organizations_organizations(:one)
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => organization.id})
-    organization_result = result["data"]["organization"]
-
-    assert_equal organization_result["id"], organization.id.to_s
-    assert_equal organization_result["createdAt"], organization.created_at.iso8601
-    assert_equal organization_result["updatedAt"], organization.updated_at.iso8601
-    assert_equal organization_result["name"], organization.name
-    assert_equal organization_result["photoUrl"], organization.photo_url
-  end
-
-  test "returns null with invalid id" do
-    query_string = <<-GRAPHQL
-      query fetchOrganization($id: ID!) {
-        organization(id: $id) {
-          id
-          name
-          photoUrl
-          createdAt
-          updatedAt
-        }
-      }
-    GRAPHQL
-
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => 0})
-    organization_result = result["data"]["organization"]
-
-    assert_nil organization_result
-  end
-
-  test "returns organization with projects" do
-    query_string = <<-GRAPHQL
-      query fetchOrganizationProjects($id: ID!) {
-        organization(id: $id) {
-          id
-          projects {
+        node(id: $id) {
+          ...on Organization {
             id
             name
             photoUrl
-            isPrivate
-            ownerType
             createdAt
             updatedAt
           }
@@ -63,9 +17,61 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
     GRAPHQL
 
     organization = organizations_organizations(:one)
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => organization.node_id})
+    organization_result = result["data"]["node"]
 
-    result = IssueTrackerSchema.execute(query_string, variables: {"id" => organization.id})
-    organization_result = result["data"]["organization"]
+    assert organization_result["id"]
+    assert organization_result["createdAt"]
+    assert organization_result["updatedAt"]
+    assert_equal organization_result["name"], organization.name
+    assert_equal organization_result["photoUrl"], organization.photo_url
+  end
+
+  test "returns null with invalid id" do
+    query_string = <<-GRAPHQL
+      query fetchOrganization($id: ID!) {
+        node(id: $id) {
+          ...on Organization {
+            id
+            name
+            photoUrl
+            createdAt
+            updatedAt
+          }
+        }
+      }
+    GRAPHQL
+
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => "invalid"})
+    organization_result = result["data"]["node"]
+
+    assert_nil organization_result
+  end
+
+  test "returns organization with projects" do
+    query_string = <<-GRAPHQL
+      query fetchOrganizationProjects($id: ID!) {
+        node(id: $id) {
+          ...on Organization {
+            id
+            projects {
+              id
+              name
+              photoUrl
+              isPrivate
+              ownerType
+              createdAt
+              updatedAt
+            }
+          }
+        }
+      }
+    GRAPHQL
+
+    organization = organizations_organizations(:one)
+
+    result = IssueTrackerSchema.execute(query_string, variables: {"id" => organization.node_id})
+    organization_result = result["data"]["node"]
 
     organization.projects.each_with_index do |project, index|
       project_result = organization_result["projects"][index]
