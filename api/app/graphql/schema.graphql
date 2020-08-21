@@ -49,6 +49,17 @@ An ISO 8601-encoded datetime
 """
 scalar ISO8601DateTime
 
+type Issue implements Node {
+  createdAt: ISO8601DateTime!
+  description: String!
+  id: ID!
+  number: Int!
+  project: Project!
+  summary: String!
+  updatedAt: ISO8601DateTime!
+  userCreator: User!
+}
+
 type Membership implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
@@ -105,6 +116,7 @@ type Project implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
   isPrivate: Boolean!
+  issues: [Issue!]!
   name: String!
   owner: ProjectOwner!
   photoUrl: String

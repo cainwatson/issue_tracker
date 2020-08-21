@@ -96,4 +96,34 @@ class FetchProjectQueryTest < ActiveSupport::TestCase
     assert project_result['owner']
     assert project_result['owner']['id']
   end
+
+  test 'returns project with issues' do
+    query_string = <<-GRAPHQL
+      query fetchProject($id: ID!) {
+        node(id: $id) {
+          ...on Project {
+            id
+            issues {
+              id
+              number
+            }
+          }
+        }
+      }
+    GRAPHQL
+
+    project = projects_projects(:org_ones)
+    result = graphql_query(query_string, variables: { 'id' => project.node_id })
+    project_result = result['data']['node']
+
+    assert_equal project_result['issues'].length, project.issues.length
+
+    project.issues.each_with_index do |issue, index|
+      issue_result = project_result['issues'][index]
+
+      assert issue_result
+      assert issue_result['id']
+      assert_equal issue_result['number'], issue.number
+    end
+  end
 end
