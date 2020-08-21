@@ -101,29 +101,21 @@ type Profile implements Node {
   user: User!
 }
 
-type Project {
+type Project implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
   isPrivate: Boolean!
   name: String!
-  ownerId: Int!
-  ownerType: ProjectOwner!
+  owner: ProjectOwner!
   photoUrl: String
   updatedAt: ISO8601DateTime!
-  userCreatorId: Int!
+  userCreator: User!
 }
 
-enum ProjectOwner {
-  """
-  A user account owns the project.
-  """
-  ACCOUNT
-
-  """
-  An organization owns the project.
-  """
-  ORGANIZATION
-}
+"""
+An owner of a project.
+"""
+union ProjectOwner = Organization | User
 
 type Query {
   """
