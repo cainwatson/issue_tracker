@@ -3,7 +3,7 @@ require "test_helper"
 class FetchUsersQueryTest < ActiveSupport::TestCase
   test "returns all users" do
     query_string = <<-GRAPHQL
-      query fetch_users {
+      query fetchUsers {
         users {
           id
           createdAt

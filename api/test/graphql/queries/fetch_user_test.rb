@@ -3,7 +3,7 @@ require "test_helper"
 class FetchUserQueryTest < ActiveSupport::TestCase
   test "returns user with id" do
     query_string = <<-GRAPHQL
-      query fetch_user($id: ID!) {
+      query fetchUser($id: ID!) {
         user(id: $id) {
           id
           createdAt
@@ -23,7 +23,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
 
   test "returns null with invalid id" do
     query_string = <<-GRAPHQL
-      query fetch_user($id: ID!) {
+      query fetchUser($id: ID!) {
         user(id: $id) {
           id
           createdAt
