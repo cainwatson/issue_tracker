@@ -10,6 +10,7 @@ class IssueTrackerSchema < GraphQL::Schema
   use GraphQL::Pagination::Connections
 
   # Stores hash of models by their name for looking up in `.object_from_id/2`
+  # `eager_load!` must be called for the models to be retreived
   Rails.application.eager_load!
   @models_by_name = ApplicationRecord.descendants
     .map { |model| [model.name, model] }
@@ -30,21 +31,16 @@ class IssueTrackerSchema < GraphQL::Schema
     nil
   end
 
+  @types_by_model = {
+    Accounts::User => Types::UserType,
+    Organizations::Organization => Types::OrganizationType,
+    Organizations::Membership => Types::MembershipType,
+    Projects::Project => Types::ProjectType,
+    Projects::Issue => Types::IssueType,
+  }
+
   # For telling the schema what type Relay `Node` objects are
   def self.resolve_type(type, obj, ctx)
-    case obj
-    when Accounts::User
-      Types::UserType
-    when Organizations::Organization
-      Types::OrganizationType
-    when Organizations::Membership
-      Types::MembershipType
-    when Projects::Project
-      Types::ProjectType
-    when Projects::Issue
-      Types::IssueType
-    else
-      raise("Unexpected object: #{obj}")
-    end
+    @types_by_model[obj.class] || raise("Unexpected object: #{obj}")
   end
 end
