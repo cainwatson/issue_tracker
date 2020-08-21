@@ -70,7 +70,17 @@ type Mutation {
   createUser(input: CreateUserInput!): CreateUserPayload
 }
 
-type Organization {
+"""
+An object with an ID.
+"""
+interface Node {
+  """
+  ID of the object.
+  """
+  id: ID!
+}
+
+type Organization implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
   name: String!
@@ -115,12 +125,30 @@ enum ProjectOwner {
 }
 
 type Query {
+  """
+  Fetches an object given its ID.
+  """
+  node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+
+  """
+  Fetches a list of objects given a list of IDs.
+  """
+  nodes(
+    """
+    IDs of the objects.
+    """
+    ids: [ID!]!
+  ): [Node]!
   organization(id: ID!): Organization
-  user(id: ID!): User
   users: [User!]!
 }
 
-type User {
+type User implements Node {
   createdAt: ISO8601DateTime!
   id: ID!
   memberships: [Membership!]!
