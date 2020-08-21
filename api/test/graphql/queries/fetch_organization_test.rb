@@ -1,7 +1,7 @@
 require "test_helper"
 
 class FetchOrganizationQueryTest < ActiveSupport::TestCase
-   test "returns organization with id" do
+  test "returns organization with id" do
     query_string = <<-GRAPHQL
       query fetchOrganization($id: ID!) {
         organization(id: $id) {
