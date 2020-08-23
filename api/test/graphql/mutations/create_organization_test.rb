@@ -20,8 +20,10 @@ class CreateOrganizationMutationTest < ActiveSupport::TestCase
       'name' => 'My New Org',
       'userCreatorId' => accounts_users(:tyler).id
     }
-    result = IssueTrackerSchema.execute(query_string, variables: { 'input' => input })
+    result = graphql_query(query_string, variables: { 'input' => input })
     create_organization_result = result['data']['createOrganization']
+
+    assert_equal create_organization_result['errors'], []
 
     assert create_organization_result['organization']['id']
     assert create_organization_result['organization']['createdAt']

@@ -15,7 +15,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
     GRAPHQL
 
     user = accounts_users(:megan)
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => user.node_id })
+    result = graphql_query(query_string, variables: { 'id' => user.node_id })
     user_result = result['data']['node']
 
     assert user_result['id']
@@ -36,7 +36,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => 'invalid' })
+    result = graphql_query(query_string, variables: { 'id' => 'invalid' })
     user_result = result['data']['node']
 
     assert_nil user_result
@@ -60,7 +60,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
     user = accounts_users(:megan)
     user_profile = profiles_profiles(:megan)
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => user.node_id })
+    result = graphql_query(query_string, variables: { 'id' => user.node_id })
     user_result = result['data']['node']
 
     assert user_result['profile']
@@ -85,7 +85,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
 
     user = accounts_users(:megan)
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => user.node_id })
+    result = graphql_query(query_string, variables: { 'id' => user.node_id })
     user_result = result['data']['node']
 
     assert_equal user_result['projects'].length, user.projects.length
@@ -115,7 +115,7 @@ class FetchUserQueryTest < ActiveSupport::TestCase
 
     user = accounts_users(:megan)
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => user.node_id })
+    result = graphql_query(query_string, variables: { 'id' => user.node_id })
     user_result = result['data']['node']
 
     assert_equal user_result['memberships'].length, user.memberships.length

@@ -12,7 +12,7 @@ class FetchUsersQueryTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string)
+    result = graphql_query(query_string)
     users_result = result['data']['users']
 
     assert_equal users_result.length, Accounts::User.count

@@ -16,7 +16,7 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => 'invalid' })
+    result = graphql_query(query_string, variables: { 'id' => 'invalid' })
     organization_result = result['data']['node']
 
     assert_nil organization_result
@@ -38,7 +38,7 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
     GRAPHQL
 
     organization = organizations_organizations(:one)
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
+    result = graphql_query(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
     assert organization_result['id']
@@ -67,7 +67,7 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
     GRAPHQL
 
     organization = organizations_organizations(:one)
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
+    result = graphql_query(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
     assert organization_result['userCreator']
@@ -91,7 +91,7 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
 
     organization = organizations_organizations(:one)
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
+    result = graphql_query(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
     assert_equal organization_result['projects'].length, organization.projects.length
@@ -121,7 +121,7 @@ class FetchOrganizationQueryTest < ActiveSupport::TestCase
 
     organization = organizations_organizations(:one)
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'id' => organization.node_id })
+    result = graphql_query(query_string, variables: { 'id' => organization.node_id })
     organization_result = result['data']['node']
 
     assert_equal organization_result['memberships'].length, organization.memberships.length

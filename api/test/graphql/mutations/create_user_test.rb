@@ -15,8 +15,10 @@ class CreateUserMutationTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    result = IssueTrackerSchema.execute(query_string, variables: { 'input' => {} })
+    result = graphql_query(query_string, variables: { 'input' => {} })
     create_user_result = result['data']['createUser']
+
+    assert_equal create_user_result['errors'], []
 
     assert create_user_result['user']['id']
     assert create_user_result['user']['createdAt']
