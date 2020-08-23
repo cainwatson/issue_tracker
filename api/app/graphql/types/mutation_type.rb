@@ -11,5 +11,9 @@ module Types
     field :create_project,
           mutation: Mutations::CreateProject,
           description: 'Create a new project.'
+
+    field :create_issue,
+          mutation: Mutations::CreateIssue,
+          description: 'Create a new issue.'
   end
 end
