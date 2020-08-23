@@ -18,7 +18,7 @@ module Mutations
         summary: args[:summary],
         description: args[:description],
         user_creator: user_creator,
-        project: project,
+        project: project
       )
 
       return { errors: issue.errors.full_messages } if issue.invalid?
