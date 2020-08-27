@@ -47,4 +47,10 @@ projects.each do |project|
       user_creator: project.user_creator
     )
   end
+
+  Projects::Board.create(
+    name: "#{project.name}'s board'",
+    project: project,
+    user_creator: project.user_creator
+  )
 end
