@@ -48,9 +48,18 @@ projects.each do |project|
     )
   end
 
-  Projects::Board.create(
+  board = Projects::Board.create(
     name: "#{project.name}'s board'",
     project: project,
     user_creator: project.user_creator
   )
+
+  create_boards(board: board, user_creator: project.user_creator)
+end
+
+def create_boards(board:, user_creator:)
+  Projects::BoardColumn.create(name: 'Todo', board: board, user_creator: user_creator)
+  Projects::BoardColumn.create(name: 'In Progress', board: board, user_creator: user_creator)
+  Projects::BoardColumn.create(name: 'In Review', board: board, user_creator: user_creator)
+  Projects::BoardColumn.create(name: 'Done', board: board, user_creator: user_creator)
 end
