@@ -36,4 +36,41 @@ class CreateIssueMutationTest < ActiveSupport::TestCase
     assert_equal create_issue_result['issue']['summary'], 'Please fix this!'
     assert_equal create_issue_result['issue']['description'], 'Lorem ipsum...'
   end
+
+  test 'assignable to boards' do
+    query_string = <<-GRAPHQL
+      mutation createIssue($input: CreateIssueInput!) {
+        createIssue(input: $input) {
+          errors
+          issue {
+            id
+            createdAt
+            updatedAt
+            number
+            summary
+            description
+            boards {
+              id
+              name
+            }
+          }
+        }
+      }
+    GRAPHQL
+
+    input = {
+      'summary' => 'Please fix this!',
+      'description' => 'Lorem ipsum...',
+      'userCreatorId' => accounts_users(:tyler).node_id,
+      'projectId' => projects_projects(:tylers).node_id,
+      'boardIds' => [projects_boards(:tylers_one).node_id]
+    }
+    result = graphql_query(query_string, variables: { 'input' => input })
+    create_issue_result = result['data']['createIssue']
+
+    assert_equal create_issue_result['errors'], []
+
+    assert create_issue_result['issue']['boards']
+    assert_equal create_issue_result['issue']['boards'][0]['name'], projects_boards(:tylers_one).name
+  end
 end
