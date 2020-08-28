@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class FetchBoardQueryTest < ActiveSupport::TestCase
+class FetchProjectBoardQueryTest < ActiveSupport::TestCase
   test 'returns null with invalid id' do
     query_string = <<-GRAPHQL
-      query fetchBoard($id: ID!) {
+      query fetchProjectBoard($id: ID!) {
         node(id: $id) {
-          ...on Board {
+          ...on ProjectBoard {
             id
             createdAt
             updatedAt
@@ -23,9 +23,9 @@ class FetchBoardQueryTest < ActiveSupport::TestCase
 
   test 'returns board with id' do
     query_string = <<-GRAPHQL
-      query fetchBoard($id: ID!) {
+      query fetchProjectBoard($id: ID!) {
         node(id: $id) {
-          ...on Board {
+          ...on ProjectBoard {
             id
             createdAt
             updatedAt
@@ -47,9 +47,9 @@ class FetchBoardQueryTest < ActiveSupport::TestCase
 
   test 'returns board with user creator' do
     query_string = <<-GRAPHQL
-      query fetchBoard($id: ID!) {
+      query fetchProjectBoard($id: ID!) {
         node(id: $id) {
-          ...on Board {
+          ...on ProjectBoard {
             id
             userCreator {
               id
@@ -69,9 +69,9 @@ class FetchBoardQueryTest < ActiveSupport::TestCase
 
   test 'returns board with project' do
     query_string = <<-GRAPHQL
-      query fetchBoard($id: ID!) {
+      query fetchProjectBoard($id: ID!) {
         node(id: $id) {
-          ...on Board {
+          ...on ProjectBoard {
             id
             project {
               id
