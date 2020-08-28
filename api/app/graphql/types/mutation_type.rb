@@ -12,6 +12,10 @@ module Types
           mutation: Mutations::CreateProject,
           description: 'Create a new project.'
 
+    field :create_project_board,
+          mutation: Mutations::CreateProjectBoard,
+          description: 'Create a new project board.'
+
     field :create_issue,
           mutation: Mutations::CreateIssue,
           description: 'Create a new issue.'
