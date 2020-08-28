@@ -4,10 +4,10 @@ module Projects
     belongs_to :project, class_name: 'Projects::Project'
 
     validates :name,
-            presence: true,
-            uniqueness: {
-              scope: :project,
-              message: 'should be unique per project'
-            }
+              presence: true,
+              uniqueness: {
+                scope: :project,
+                message: 'should be unique per project'
+              }
   end
 end
