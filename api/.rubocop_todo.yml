@@ -35,3 +35,7 @@ Style/Documentation:
 # SupportedStyles: always, always_true, never
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - 'db/seeds.rb'
