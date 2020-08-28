@@ -1,5 +1,9 @@
 module Projects
   class BoardColumn < ApplicationRecord
+    include RankedModel
+
+    ranks :rank
+
     belongs_to :user_creator, class_name: 'Accounts::User'
     belongs_to :board, class_name: 'Projects::Board'
 
