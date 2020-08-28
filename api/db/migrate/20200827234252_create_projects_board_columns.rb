@@ -3,7 +3,7 @@ class CreateProjectsBoardColumns < ActiveRecord::Migration[6.0]
     create_table :projects_board_columns do |t|
       t.string :name, null: false
 
-      t.references :user_creator, null: false, foreign_key: { to_table: 'projects_projects' }
+      t.references :user_creator, null: false, foreign_key: { to_table: 'accounts_users' }
       t.references :board, null: false, foreign_key: { to_table: 'projects_boards' }
 
       t.timestamps null: false
