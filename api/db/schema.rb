@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_827_232_535) do
+ActiveRecord::Schema.define(version: 20_200_827_235_358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -48,6 +48,28 @@ ActiveRecord::Schema.define(version: 20_200_827_232_535) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['user_id'], name: 'index_profiles_profiles_on_user_id'
+  end
+
+  create_table 'projects_board_column_issues', force: :cascade do |t|
+    t.bigint 'user_creator_id', null: false
+    t.bigint 'board_column_id', null: false
+    t.bigint 'issue_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['board_column_id'], name: 'index_projects_board_column_issues_on_board_column_id'
+    t.index ['issue_id'], name: 'index_projects_board_column_issues_on_issue_id'
+    t.index ['user_creator_id'], name: 'index_projects_board_column_issues_on_user_creator_id'
+  end
+
+  create_table 'projects_board_columns', force: :cascade do |t|
+    t.string 'name', null: false
+    t.bigint 'user_creator_id', null: false
+    t.bigint 'board_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['board_id'], name: 'index_projects_board_columns_on_board_id'
+    t.index %w[name board_id], name: 'index_projects_board_columns_on_name_and_board_id', unique: true
+    t.index ['user_creator_id'], name: 'index_projects_board_columns_on_user_creator_id'
   end
 
   create_table 'projects_boards', force: :cascade do |t|
@@ -93,6 +115,11 @@ ActiveRecord::Schema.define(version: 20_200_827_232_535) do
   add_foreign_key 'organizations_memberships', 'organizations_organizations', column: 'organization_id'
   add_foreign_key 'organizations_organizations', 'accounts_users', column: 'user_creator_id'
   add_foreign_key 'profiles_profiles', 'accounts_users', column: 'user_id'
+  add_foreign_key 'projects_board_column_issues', 'accounts_users', column: 'user_creator_id'
+  add_foreign_key 'projects_board_column_issues', 'projects_board_columns', column: 'board_column_id'
+  add_foreign_key 'projects_board_column_issues', 'projects_issues', column: 'issue_id'
+  add_foreign_key 'projects_board_columns', 'accounts_users', column: 'user_creator_id'
+  add_foreign_key 'projects_board_columns', 'projects_boards', column: 'board_id'
   add_foreign_key 'projects_boards', 'accounts_users', column: 'user_creator_id'
   add_foreign_key 'projects_boards', 'projects_projects', column: 'project_id'
   add_foreign_key 'projects_issues', 'accounts_users', column: 'user_creator_id'
