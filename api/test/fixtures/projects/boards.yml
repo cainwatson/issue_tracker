@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 tylers_one:
-  name: Tyler's first project noard
+  name: Tyler's first project board
   user_creator: tyler
-  project: tylers_one
+  project: tylers
 
 org_two_one:
   name: Organization two's project board
   user_creator: megan
-  project: org_twos_one
+  project: org_twos
