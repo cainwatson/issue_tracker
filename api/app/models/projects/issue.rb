@@ -3,6 +3,8 @@ module Projects
     belongs_to :user_creator, class_name: 'Accounts::User'
     belongs_to :project, class_name: 'Projects::Project'
 
+    has_many :board_column_items, class_name: 'Projects::BoardColumnItem'
+
     validates :summary, presence: true
     validates :number,
               presence: true,
