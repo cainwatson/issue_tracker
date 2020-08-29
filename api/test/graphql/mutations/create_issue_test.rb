@@ -49,7 +49,7 @@ class CreateIssueMutationTest < ActiveSupport::TestCase
             number
             summary
             description
-            boardColumnItems {
+            boardItems {
               id
             }
           }
@@ -62,19 +62,14 @@ class CreateIssueMutationTest < ActiveSupport::TestCase
       'description' => 'Lorem ipsum...',
       'userCreatorId' => accounts_users(:tyler).node_id,
       'projectId' => projects_projects(:tylers).node_id,
-      'boardColumnIds' => [
-        {
-          'boardId' => projects_boards(:tylers_one).node_id,
-          'boardColumnId' => projects_boards(:tylers_one).node_id
-        }
-      ]
+      'boardIds' => [projects_boards(:tylers_one).node_id]
     }
     result = graphql_query(query_string, variables: { 'input' => input })
     create_issue_result = result['data']['createIssue']
 
     assert_equal create_issue_result['errors'], []
 
-    assert create_issue_result['issue']['boardColumnItems']
-    assert_equal create_issue_result['issue']['boardColumnItems'].length, 1
+    assert create_issue_result['issue']['boardItems']
+    assert_equal create_issue_result['issue']['boardItems'].length, 1
   end
 end

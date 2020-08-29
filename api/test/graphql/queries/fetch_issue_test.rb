@@ -97,13 +97,13 @@ class FetchIssueQueryTest < ActiveSupport::TestCase
     assert_equal issue_result['project']['name'], issue.project.name
   end
 
-  test 'returns issue with board column items' do
+  test 'returns issue with board items' do
     query_string = <<-GRAPHQL
       query fetchIssue($id: ID!) {
         node(id: $id) {
           ...on Issue {
             id
-            boardColumnItems {
+            boardItems {
               id
             }
           }
@@ -115,10 +115,10 @@ class FetchIssueQueryTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'id' => issue.node_id })
     issue_result = result['data']['node']
 
-    assert_equal issue_result['boardColumnItems'].length, issue.board_column_items.length
+    assert_equal issue_result['boardItems'].length, issue.board_items.length
 
-    issue.board_column_items.each_with_index do |_board_column_items, index|
-      board_column_item_result = issue_result['boardColumnsItems'][index]
+    issue.board_items.each_with_index do |_board_items, index|
+      board_column_item_result = issue_result['boardItems'][index]
 
       assert board_column_item_result
       assert board_column_item_result['id']

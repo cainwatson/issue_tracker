@@ -1,29 +1,32 @@
 module Mutations
-  class CreateBoardColumnItem < Mutations::BaseMutation
+  class CreateBoardItem < Mutations::BaseMutation
     null true
 
     argument :user_creator_id, ID, required: true
-    argument :column_id, ID, required: true
-    argument :issue_id, ID, required: true
+    argument :board_id, ID, required: true
+    argument :column_id, ID, required: false
+    argument :issue_id, ID, required: false
 
-    field :column_item, Types::BoardColumnItemType, null: true
+    field :item, Types::BoardItemType, null: true
     field :errors, [String], null: false
 
     def resolve(**args)
       user_creator = IssueTrackerSchema.object_from_id(args[:user_creator_id])
+      board = IssueTrackerSchema.object_from_id(args[:board_id])
       column = IssueTrackerSchema.object_from_id(args[:column_id])
       issue = IssueTrackerSchema.object_from_id(args[:issue_id])
 
-      column_item = Projects::BoardColumnItem.create(
+      item = Projects::BoardItem.create(
         user_creator: user_creator,
+        board: board,
         column: column,
         issue: issue
       )
 
-      return { errors: column_item.errors.full_messages } if column_item.invalid?
+      return { errors: item.errors.full_messages } if item.invalid?
 
       {
-        column_item: column_item,
+        item: item,
         errors: []
       }
     end

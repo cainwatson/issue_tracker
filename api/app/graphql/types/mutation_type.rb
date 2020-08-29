@@ -20,9 +20,9 @@ module Types
           mutation: Mutations::CreateBoardColumn,
           description: 'Create a new column on a project board.'
 
-    field :create_board_column_item,
-          mutation: Mutations::CreateBoardColumnItem,
-          description: 'Create a new item for a column on a project board.'
+    field :create_board_item,
+          mutation: Mutations::CreateBoardItem,
+          description: 'Create a new item on a project board.'
 
     field :create_issue,
           mutation: Mutations::CreateIssue,
