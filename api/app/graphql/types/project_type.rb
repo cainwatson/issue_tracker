@@ -15,5 +15,6 @@ module Types
     field :owner, Types::ProjectOwner, null: false
     field :user_creator, Types::UserType, null: false
     field :issues, [Types::IssueType], null: false
+    field :boards, [Types::BoardType], null: false
   end
 end

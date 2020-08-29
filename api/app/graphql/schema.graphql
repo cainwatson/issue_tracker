@@ -302,6 +302,7 @@ type Profile implements Node {
 }
 
 type Project implements Node {
+  boards: [Board!]!
   createdAt: ISO8601DateTime!
   id: ID!
   isPrivate: Boolean!
