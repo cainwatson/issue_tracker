@@ -12,6 +12,12 @@ tylers_two:
   user_creator: tyler
   project: tylers
   number: 2
+tylers_three:
+  summary: Yet another issue
+  description: MyText
+  user_creator: tyler
+  project: tylers
+  number: 3
 
 megans_one:
   summary: Todo
