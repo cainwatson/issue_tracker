@@ -111,17 +111,17 @@ class FetchIssueQueryTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    issue = projects_issues(:tyler_one)
+    issue = projects_issues(:tylers_one)
     result = graphql_query(query_string, variables: { 'id' => issue.node_id })
     issue_result = result['data']['node']
 
-    assert_equal issue_result['boardColumns'].length, issue.board_columns.length
+    assert_equal issue_result['boardColumnItems'].length, issue.board_column_items.length
 
-    issue.board_columns.each_with_index do |_board_column, index|
-      board_column_result = issue_result['boardColumns'][index]
+    issue.board_column_items.each_with_index do |_board_column_items, index|
+      board_column_item_result = issue_result['boardColumnsItems'][index]
 
-      assert board_column_result
-      assert board_column_result['id']
+      assert board_column_item_result
+      assert board_column_item_result['id']
     end
   end
 end
