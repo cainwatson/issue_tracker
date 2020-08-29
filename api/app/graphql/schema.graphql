@@ -1,4 +1,5 @@
 type Board implements Node {
+  columns: [BoardColumn!]!
   createdAt: ISO8601DateTime!
   id: ID!
   name: String!

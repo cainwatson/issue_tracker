@@ -11,5 +11,6 @@ module Types
 
     field :user_creator, Types::UserType, null: false
     field :project, Types::ProjectType, null: false
+    field :columns, [Types::BoardColumnType], null: false
   end
 end
