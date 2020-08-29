@@ -1,5 +1,5 @@
 module Types
-  class ProjectBoardType < Types::BaseObject
+  class BoardType < Types::BaseObject
     implements GraphQL::Types::Relay::Node
 
     global_id_field :id

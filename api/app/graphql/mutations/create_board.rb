@@ -1,12 +1,12 @@
 module Mutations
-  class CreateProjectBoard < Mutations::BaseMutation
+  class CreateBoard < Mutations::BaseMutation
     null true
 
     argument :name, String, required: true
-    argument :project_id, ID, required: true
     argument :user_creator_id, ID, required: true
+    argument :project_id, ID, required: true
 
-    field :board, Types::ProjectBoardType, null: true
+    field :board, Types::BoardType, null: true
     field :errors, [String], null: false
 
     def resolve(**args)
@@ -16,7 +16,7 @@ module Mutations
       board = Projects::Board.create(
         name: args[:name],
         user_creator: user_creator,
-        project: project,
+        project: project
       )
 
       return { errors: board.errors.full_messages } if board.invalid?

@@ -1,5 +1,5 @@
 module Projects
-  class BoardColumnIssue < ApplicationRecord
+  class BoardColumnItem < ApplicationRecord
     include RankedModel
 
     ranks :rank

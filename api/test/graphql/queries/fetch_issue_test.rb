@@ -96,4 +96,32 @@ class FetchIssueQueryTest < ActiveSupport::TestCase
     assert issue_result['project']['id']
     assert_equal issue_result['project']['name'], issue.project.name
   end
+
+  test 'returns issue with board column items' do
+    query_string = <<-GRAPHQL
+      query fetchIssue($id: ID!) {
+        node(id: $id) {
+          ...on Issue {
+            id
+            boardColumnItems {
+              id
+            }
+          }
+        }
+      }
+    GRAPHQL
+
+    issue = projects_issues(:tyler_one)
+    result = graphql_query(query_string, variables: { 'id' => issue.node_id })
+    issue_result = result['data']['node']
+
+    assert_equal issue_result['boardColumns'].length, issue.board_columns.length
+
+    issue.board_columns.each_with_index do |_board_column, index|
+      board_column_result = issue_result['boardColumns'][index]
+
+      assert board_column_result
+      assert board_column_result['id']
+    end
+  end
 end

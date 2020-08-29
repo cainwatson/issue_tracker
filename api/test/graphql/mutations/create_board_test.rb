@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class CreateProjectBoardMutationTest < ActiveSupport::TestCase
+class CreateBoardMutationTest < ActiveSupport::TestCase
   test 'returns created board' do
     query_string = <<-GRAPHQL
-      mutation createProjectBoard($input: CreateProjectBoardInput!) {
-        createProjectBoard(input: $input) {
+      mutation createBoard($input: CreateBoardInput!) {
+        createBoard(input: $input) {
           errors
           board {
             id
@@ -22,7 +22,7 @@ class CreateProjectBoardMutationTest < ActiveSupport::TestCase
       'projectId' => projects_projects(:tylers).node_id
     }
     result = graphql_query(query_string, variables: { 'input' => input })
-    create_board_result = result['data']['createProjectBoard']
+    create_board_result = result['data']['createBoard']
 
     assert_equal create_board_result['errors'], []
 
