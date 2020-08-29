@@ -4,6 +4,7 @@ module Projects
     belongs_to :owner, polymorphic: true
 
     has_many :issues, class_name: 'Projects::Issue'
+    has_many :boards, class_name: 'Projects::Board'
 
     validates :name,
               presence: true,
