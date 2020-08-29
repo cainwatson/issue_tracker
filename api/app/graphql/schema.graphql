@@ -12,6 +12,7 @@ type BoardColumn implements Node {
   board: Board!
   createdAt: ISO8601DateTime!
   id: ID!
+  items: [BoardItem!]!
   name: String!
   updatedAt: ISO8601DateTime!
   userCreator: User!

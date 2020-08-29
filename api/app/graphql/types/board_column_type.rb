@@ -11,5 +11,6 @@ module Types
 
     field :user_creator, Types::UserType, null: false
     field :board, Types::BoardType, null: false
+    field :items, [Types::BoardItemType], null: false
   end
 end
