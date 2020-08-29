@@ -13,5 +13,6 @@ module Types
 
     field :user_creator, Types::UserType, null: false
     field :project, Types::ProjectType, null: false
+    field :board_column_items, Types::BoardColumnItemType, null: false
   end
 end
