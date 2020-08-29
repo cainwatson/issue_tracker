@@ -37,7 +37,9 @@ class IssueTrackerSchema < GraphQL::Schema
     Organizations::Organization => Types::OrganizationType,
     Organizations::Membership => Types::MembershipType,
     Projects::Project => Types::ProjectType,
-    Projects::Board => Types::ProjectBoardType,
+    Projects::Board => Types::BoardType,
+    Projects::BoardColumn => Types::BoardColumnType,
+    Projects::BoardColumnItem => Types::BoardColumnItemType,
     Projects::Issue => Types::IssueType
   }
 

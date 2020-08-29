@@ -16,6 +16,14 @@ module Types
           mutation: Mutations::CreateBoard,
           description: 'Create a new project board.'
 
+    field :create_board_column,
+          mutation: Mutations::CreateBoardColumn,
+          description: 'Create a new column on a project board.'
+
+    field :create_board_column_item,
+          mutation: Mutations::CreateBoardColumnItem,
+          description: 'Create a new item for a column on a project board.'
+
     field :create_issue,
           mutation: Mutations::CreateIssue,
           description: 'Create a new issue.'
