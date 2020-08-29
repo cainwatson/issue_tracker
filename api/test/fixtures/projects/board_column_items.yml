@@ -2,9 +2,9 @@
 
 tylers_one_todo_1:
   user_creator: tyler
-  board_column: tylers_one_todo
+  column: tylers_one_todo
   issue: tylers_two
 tylers_one_in_progress_1:
   user_creator: tyler
-  board_column: tylers_one_in_progress
+  column: tylers_one_in_progress
   issue: tylers_one

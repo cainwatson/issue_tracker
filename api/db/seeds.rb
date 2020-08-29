@@ -35,7 +35,7 @@ def add_issues_to_column(amount:, column:)
     )
     BoardColumnItem.create(
       issue: issue,
-      board_column: column,
+      column: column,
       user_creator: column.user_creator
     )
   end

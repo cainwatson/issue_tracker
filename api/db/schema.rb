@@ -52,12 +52,12 @@ ActiveRecord::Schema.define(version: 20_200_828_015_215) do
 
   create_table 'projects_board_column_items', force: :cascade do |t|
     t.bigint 'user_creator_id', null: false
-    t.bigint 'board_column_id', null: false
+    t.bigint 'column_id', null: false
     t.bigint 'issue_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'rank'
-    t.index ['board_column_id'], name: 'index_projects_board_column_items_on_board_column_id'
+    t.index ['column_id'], name: 'index_projects_board_column_items_on_column_id'
     t.index ['issue_id'], name: 'index_projects_board_column_items_on_issue_id'
     t.index ['user_creator_id'], name: 'index_projects_board_column_items_on_user_creator_id'
   end
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20_200_828_015_215) do
   add_foreign_key 'organizations_organizations', 'accounts_users', column: 'user_creator_id'
   add_foreign_key 'profiles_profiles', 'accounts_users', column: 'user_id'
   add_foreign_key 'projects_board_column_items', 'accounts_users', column: 'user_creator_id'
-  add_foreign_key 'projects_board_column_items', 'projects_board_columns', column: 'board_column_id'
+  add_foreign_key 'projects_board_column_items', 'projects_board_columns', column: 'column_id'
   add_foreign_key 'projects_board_column_items', 'projects_issues', column: 'issue_id'
   add_foreign_key 'projects_board_columns', 'accounts_users', column: 'user_creator_id'
   add_foreign_key 'projects_board_columns', 'projects_boards', column: 'board_id'
