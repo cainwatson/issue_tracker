@@ -31,5 +31,9 @@ module Types
     field :move_board_column,
           mutation: Mutations::MoveBoardColumn,
           description: 'Move a column on a board to a new position.'
+
+    field :move_board_item,
+          mutation: Mutations::MoveBoardItem,
+          description: 'Move an item in a column to a new position.'
   end
 end

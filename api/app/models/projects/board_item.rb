@@ -2,7 +2,9 @@ module Projects
   class BoardItem < ApplicationRecord
     include RankedModel
 
-    ranks :column_order
+    ranks :column_order, with_same: :column_id
+
+    default_scope { rank(:column_order) }
 
     belongs_to :user_creator, class_name: 'Accounts::User'
     belongs_to :board, class_name: 'Projects::Board'

@@ -7,6 +7,8 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
+    field :column_position, Int, null: false, hash_key: 'column_order_rank'
+
     field :user_creator, Types::UserType, null: false
     field :board, Types::BoardType, null: false
     field :column, Types::BoardColumnType, null: true
