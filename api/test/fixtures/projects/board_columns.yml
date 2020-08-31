@@ -4,32 +4,40 @@ tylers_one_todo:
   name: Todo
   user_creator: tyler
   board: tylers_one
+  board_order: 100
 tylers_one_in_progress:
   name: In Progress
   user_creator: tyler
   board: tylers_one
+  board_order: 200
 tylers_one_in_review:
   name: In Review
   user_creator: tyler
   board: tylers_one
+  board_order: 300
 tylers_one_done:
   name: Done
   user_creator: tyler
   board: tylers_one
+  board_order: 400
 
 org_two_one_q1:
   name: Q1
   user_creator: megan
   board: org_two_one
+  board_order: 100
 org_two_one_q2:
   name: Q2
   user_creator: megan
   board: org_two_one
+  board_order: 200
 org_two_one_q3:
   name: Q3
   user_creator: megan
   board: org_two_one
+  board_order: 300
 org_two_one_q4:
   name: Q4
   user_creator: megan
   board: org_two_one
+  board_order: 400
