@@ -16,14 +16,14 @@ class MoveBoardItemMutationTest < ActiveSupport::TestCase
       }
     GRAPHQL
 
-    item = projects_board_items(:tylers_one_todo)
+    item = projects_board_items(:tylers_one_todo_1)
     new_position = item.column_order_rank + 1
     input = {
       'itemId' => item.node_id,
       'position' => new_position
     }
     result = graphql_query(query_string, variables: { 'input' => input })
-    move_board_item_result = result['data']['moveBoarditem']
+    move_board_item_result = result['data']['moveBoardItem']
 
     assert_equal move_board_item_result['errors'], []
 

@@ -6,6 +6,12 @@ tylers_one_todo_1:
   column: tylers_one_todo
   issue: tylers_two
   column_order: 100
+tylers_one_todo_2:
+  user_creator: tyler
+  board: tylers_one
+  column: tylers_one_todo
+  issue: tylers_three
+  column_order: 200
 tylers_one_in_progress_1:
   user_creator: tyler
   board: tylers_one
