@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20_200_828_015_215) do
     t.bigint 'board_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.integer 'order'
+    t.integer 'board_order'
     t.index ['board_id'], name: 'index_projects_board_columns_on_board_id'
     t.index %w[name board_id], name: 'index_projects_board_columns_on_name_and_board_id', unique: true
     t.index ['user_creator_id'], name: 'index_projects_board_columns_on_user_creator_id'
