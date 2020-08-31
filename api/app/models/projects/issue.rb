@@ -16,6 +16,17 @@ module Projects
     before_validation :set_number
     before_save :set_number
 
+    def add_to_boards(board_ids)
+      boards = board_ids.map do |board_id|
+        {
+          board_id: board_id,
+          user_creator: user_creator,
+          issue: self
+        }
+      end
+      Projects::BoardItem.create(boards)
+    end
+
     private
 
     def set_number

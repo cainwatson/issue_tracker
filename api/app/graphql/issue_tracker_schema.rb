@@ -21,6 +21,14 @@ class IssueTrackerSchema < GraphQL::Schema
     GraphQL::Schema::UniqueWithinType.encode(object.class.name, object.id)
   end
 
+  # Decode object id using UUID created from `.id_from_object/3`
+  def self.object_id_from_id(id, _query_ctx = {})
+    _model_name, object_id = GraphQL::Schema::UniqueWithinType.decode(id)
+    object_id
+  rescue StandardError
+    nil
+  end
+
   # Find object in database using UUID created from `.id_from_object/3`
   def self.object_from_id(id, _query_ctx = {})
     model_name, object_id = GraphQL::Schema::UniqueWithinType.decode(id)
