@@ -28,6 +28,10 @@ module Types
           mutation: Mutations::CreateIssue,
           description: 'Create a new issue.'
 
+    field :update_issue,
+          mutation: Mutations::UpdateIssue,
+          description: 'Update an issue.'
+
     field :move_board_column,
           mutation: Mutations::MoveBoardColumn,
           description: 'Move a column on a board to a new position.'
