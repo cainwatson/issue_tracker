@@ -1,7 +1,5 @@
 module Mutations
   class CreateProject < Mutations::BaseMutation
-    null true
-
     argument :name, String, required: true
     argument :photo_url, String, required: false
     argument :is_private, Boolean, required: false

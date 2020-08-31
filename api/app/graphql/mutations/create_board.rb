@@ -1,7 +1,5 @@
 module Mutations
   class CreateBoard < Mutations::BaseMutation
-    null true
-
     argument :name, String, required: true
     argument :user_creator_id, ID, required: true
     argument :project_id, ID, required: true

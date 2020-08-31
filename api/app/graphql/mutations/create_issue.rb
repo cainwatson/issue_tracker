@@ -1,7 +1,5 @@
 module Mutations
   class CreateIssue < Mutations::BaseMutation
-    null true
-
     argument :summary, String, required: true
     argument :description, String, required: false
     argument :user_creator_id, ID, required: true

@@ -1,7 +1,5 @@
 module Mutations
   class MoveBoardColumn < Mutations::BaseMutation
-    null true
-
     argument :column_id, ID, required: true
     argument :position, Int, required: true
 

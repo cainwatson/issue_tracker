@@ -1,7 +1,5 @@
 module Mutations
   class MoveBoardItem < Mutations::BaseMutation
-    null true
-
     argument :item_id, ID, required: true
     argument :position, Int, required: true
 

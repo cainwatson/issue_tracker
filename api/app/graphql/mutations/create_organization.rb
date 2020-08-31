@@ -1,7 +1,5 @@
 module Mutations
   class CreateOrganization < Mutations::BaseMutation
-    null true
-
     argument :name, String, required: true
     argument :user_creator_id, ID, required: true
 
