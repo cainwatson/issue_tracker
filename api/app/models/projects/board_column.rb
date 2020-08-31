@@ -2,7 +2,9 @@ module Projects
   class BoardColumn < ApplicationRecord
     include RankedModel
 
-    ranks :board_order
+    ranks :board_order, with_same: :board_id           # Ducks belong_to Ponds, make the ranker scoped to one pond
+
+    default_scope { rank(:board_order) }
 
     belongs_to :user_creator, class_name: 'Accounts::User'
     belongs_to :board, class_name: 'Projects::Board'
