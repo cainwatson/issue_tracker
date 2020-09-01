@@ -1,5 +1,7 @@
 module Mutations
   class UpdateIssue < Mutations::BaseMutation
+    description 'Update an issue.'
+
     argument :summary, String, required: false
     argument :description, String, required: false
     argument :issue_id, ID, required: true

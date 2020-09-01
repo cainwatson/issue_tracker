@@ -1,5 +1,7 @@
 module Mutations
   class CreateBoardItem < Mutations::BaseMutation
+    description 'Create a new item on a project board.'
+
     argument :user_creator_id, ID, required: true
     argument :board_id, ID, required: true
     argument :column_id, ID, required: false

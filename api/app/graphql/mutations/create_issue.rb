@@ -1,5 +1,7 @@
 module Mutations
   class CreateIssue < Mutations::BaseMutation
+    description 'Create a new issue.'
+
     argument :summary, String, required: true
     argument :description, String, required: false
     argument :user_creator_id, ID, required: true

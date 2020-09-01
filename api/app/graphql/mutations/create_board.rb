@@ -1,5 +1,7 @@
 module Mutations
   class CreateBoard < Mutations::BaseMutation
+    description 'Create a new project board.'
+
     argument :name, String, required: true
     argument :user_creator_id, ID, required: true
     argument :project_id, ID, required: true

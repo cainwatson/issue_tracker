@@ -1,5 +1,7 @@
 module Mutations
   class CreateBoardColumn < Mutations::BaseMutation
+    description 'Create a new column on a project board.'
+
     argument :name, String, required: true
     argument :user_creator_id, ID, required: true
     argument :board_id, ID, required: true

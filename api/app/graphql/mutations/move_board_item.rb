@@ -1,5 +1,7 @@
 module Mutations
   class MoveBoardItem < Mutations::BaseMutation
+    description 'Move an item in a column to a new position.'
+
     argument :item_id, ID, required: true
     argument :position, Int, required: true
 

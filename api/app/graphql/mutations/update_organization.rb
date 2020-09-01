@@ -1,5 +1,7 @@
 module Mutations
   class UpdateOrganization < Mutations::BaseMutation
+    description 'Update an organization.'
+
     argument :organization_id, ID, required: true
     argument :name, String, required: false
 

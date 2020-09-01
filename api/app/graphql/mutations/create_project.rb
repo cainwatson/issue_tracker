@@ -1,5 +1,7 @@
 module Mutations
   class CreateProject < Mutations::BaseMutation
+    description 'Create a new project.'
+
     argument :name, String, required: true
     argument :photo_url, String, required: false
     argument :is_private, Boolean, required: false

@@ -1,5 +1,7 @@
 module Mutations
   class CreateOrganization < Mutations::BaseMutation
+    description 'Create a new organization.'
+
     argument :name, String, required: true
     argument :user_creator_id, ID, required: true
 
