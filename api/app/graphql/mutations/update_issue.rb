@@ -8,19 +8,14 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(**args)
-      issue_id = IssueTrackerSchema.object_id_from_id(args[:issue_id])
-      issue = Projects::Issue.update(
-        issue_id,
-        summary: args[:summary],
-        description: args[:description]
-      )
+      issue = IssueTrackerSchema.object_from_id(args[:issue_id])
+      update_args = args.slice(:summary, :description).compact()
 
-      return { errors: issue.errors.full_messages } if issue.invalid?
-
-      {
-        issue: issue,
-        errors: []
-      }
+      if issue.update(update_args)
+        { issue: issue, errors: [] }
+      else
+        { errors: issue.errors.full_messages }
+      end
     end
   end
 end
