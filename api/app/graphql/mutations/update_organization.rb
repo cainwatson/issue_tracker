@@ -8,7 +8,7 @@ module Mutations
 
     def resolve(**args)
       organization = IssueTrackerSchema.object_from_id(args[:organization_id])
-      update_args = args.slice(:name).compact()
+      update_args = args.slice(:name).compact
 
       if organization.update(update_args)
         { organization: organization, errors: [] }

@@ -20,7 +20,7 @@ class UpdateOrganizationMutationTest < ActiveSupport::TestCase
     organization = organizations_organizations(:one)
     input = {
       'organizationId' => organization.node_id,
-      'name' => 'New org name',
+      'name' => 'New org name'
     }
     result = graphql_query(query_string, variables: { 'input' => input })
     update_organization_result = result['data']['updateOrganization']
