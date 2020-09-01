@@ -28,6 +28,10 @@ module Types
           mutation: Mutations::CreateIssue,
           description: 'Create a new issue.'
 
+    field :update_organization,
+          mutation: Mutations::UpdateOrganization,
+          description: 'Update an organization.'
+
     field :update_issue,
           mutation: Mutations::UpdateIssue,
           description: 'Update an issue.'
