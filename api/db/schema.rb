@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_828_015_215) do
+ActiveRecord::Schema.define(version: 20_200_901_133_601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
   create_table 'accounts_users', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'email', default: '', null: false
+    t.string 'password_digest', default: '', null: false
+    t.string 'jti', default: '', null: false
+    t.index ['email'], name: 'index_accounts_users_on_email', unique: true
+    t.index ['jti'], name: 'index_accounts_users_on_jti', unique: true
   end
 
   create_table 'organizations_memberships', force: :cascade do |t|

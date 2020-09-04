@@ -43,7 +43,10 @@ def add_issues_to_column(amount:, column:)
 end
 
 5.times do |num|
-  user = Accounts::User.create
+  user = Accounts::User.create(
+    email: "user#{num}@test.test",
+    password: 'testpassword'
+  )
   _profile = Profiles::Profile.create(
     user: user,
     first_name: "User ##{num}",
