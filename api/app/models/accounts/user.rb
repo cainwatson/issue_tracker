@@ -1,5 +1,7 @@
 module Accounts
   class User < ApplicationRecord
+    include Authenticatable
+
     has_one :profile, class_name: 'Profiles::Profile'
 
     has_many :projects, class_name: 'Projects::Project', as: :owner

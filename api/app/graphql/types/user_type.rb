@@ -7,6 +7,8 @@ module Types
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
+    field :email, String, null: false
+
     field :profile, Types::ProfileType, null: false
     field :projects, [Types::ProjectType], null: false
     field :memberships, [Types::MembershipType], null: false
