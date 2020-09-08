@@ -13,3 +13,8 @@ megan:
   email: megan@test.test
   password_digest: megan_pwd_digest
   jti: meganjti
+
+jamie:
+  email: jamie@test.test
+  password_digest: jamie_pwd_digest
+  jti: jamiejti

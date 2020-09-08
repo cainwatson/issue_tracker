@@ -2,5 +2,15 @@
 
 one:
   user_from: tyler
+  user_to: tyler
+  organization: one
+
+two:
+  user_from: megan
+  user_to: megan
+  organization: two
+
+three:
+  user_from: tyler
   user_to: megan
   organization: one

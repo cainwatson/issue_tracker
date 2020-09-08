@@ -15,5 +15,7 @@ module Types
 
     field :move_board_column, mutation: Mutations::MoveBoardColumn
     field :move_board_item, mutation: Mutations::MoveBoardItem
+
+    field :invite_member, mutation: Mutations::InviteMember
   end
 end
