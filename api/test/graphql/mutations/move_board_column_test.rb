@@ -25,7 +25,7 @@ class MoveBoardColumnMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     move_board_column_result = result['data']['moveBoardColumn']
 
-    assert_equal move_board_column_result['errors'], []
+    assert_nil move_board_column_result['errors']
 
     assert move_board_column_result['column']['id']
     assert move_board_column_result['column']['createdAt']

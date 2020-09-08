@@ -26,7 +26,7 @@ class UpdateIssueMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     update_issue_result = result['data']['updateIssue']
 
-    assert_equal update_issue_result['errors'], []
+    assert_nil update_issue_result['errors']
 
     assert update_issue_result['issue']['id']
     assert update_issue_result['issue']['createdAt']

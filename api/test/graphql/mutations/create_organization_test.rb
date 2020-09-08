@@ -18,12 +18,12 @@ class CreateOrganizationMutationTest < ActiveSupport::TestCase
 
     input = {
       'name' => 'My New Org',
-      'userCreatorId' => accounts_users(:tyler).id
+      'userCreatorId' => accounts_users(:tyler).node_id
     }
     result = graphql_query(query_string, variables: { 'input' => input })
     create_organization_result = result['data']['createOrganization']
 
-    assert_equal create_organization_result['errors'], []
+    assert_nil create_organization_result['errors']
 
     assert create_organization_result['organization']['id']
     assert create_organization_result['organization']['createdAt']

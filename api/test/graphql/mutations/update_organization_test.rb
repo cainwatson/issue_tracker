@@ -25,7 +25,7 @@ class UpdateOrganizationMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     update_organization_result = result['data']['updateOrganization']
 
-    assert_equal update_organization_result['errors'], []
+    assert_nil update_organization_result['errors']
 
     assert update_organization_result['organization']['id']
     assert update_organization_result['organization']['createdAt']

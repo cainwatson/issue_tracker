@@ -25,10 +25,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 16
 
-Metrics/AbcSize:
-  Exclude:
-    - 'app/graphql/mutations/create_issue.rb'
-
 # Offense count: 39
 Style/Documentation:
   Enabled: false

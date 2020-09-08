@@ -16,9 +16,11 @@ module Mutations
         user_to_id: IssueTrackerSchema.object_id_from_id(user_to_id)
       )
 
-      return { errors: membership.errors.full_messages } if membership.invalid?
-
-      { membership: membership }
+      if membership.invalid?
+        { errors: membership.errors.full_messages }
+      else
+        { membership: membership }
+      end
     end
   end
 end

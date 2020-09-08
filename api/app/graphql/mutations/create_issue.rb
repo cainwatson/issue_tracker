@@ -9,7 +9,7 @@ module Mutations
     argument :board_ids, [ID], required: false
 
     field :issue, Types::IssueType, null: true
-    field :errors, [String], null: false
+    field :errors, [String], null: true
 
     def resolve(**args)
       user_creator = IssueTrackerSchema.object_from_id(args[:user_creator_id])
@@ -25,13 +25,13 @@ module Mutations
       board_ids = (args[:board_ids] || []).map { |id| IssueTrackerSchema.object_id_from_id(id) }
       board_items = issue.add_to_boards(board_ids)
 
-      return { errors: board_items.flat_map(&:errors.full_messages) } if board_items.any?(&:invalid?)
-      return { errors: issue.errors.full_messages } if issue.invalid?
-
-      {
-        issue: issue,
-        errors: []
-      }
+      if board_items.any?(&:invalid?)
+        { errors: board_items.flat_map(&:errors.full_messages) }
+      elsif issue.invalid?
+        { errors: issue.errors.full_messages }
+      else
+        { issue: issue }
+      end
     end
   end
 end

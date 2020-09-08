@@ -24,7 +24,7 @@ class CreateBoardItemMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     create_board_item_result = result['data']['createBoardItem']
 
-    assert_equal create_board_item_result['errors'], []
+    assert_nil create_board_item_result['errors']
 
     assert create_board_item_result['item']['id']
     assert create_board_item_result['item']['createdAt']

@@ -24,7 +24,7 @@ class CreateBoardColumnMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     create_board_column_result = result['data']['createBoardColumn']
 
-    assert_equal create_board_column_result['errors'], []
+    assert_nil create_board_column_result['errors']
 
     assert create_board_column_result['column']['id']
     assert create_board_column_result['column']['createdAt']

@@ -25,7 +25,7 @@ class MoveBoardItemMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     move_board_item_result = result['data']['moveBoardItem']
 
-    assert_equal move_board_item_result['errors'], []
+    assert_nil move_board_item_result['errors']
 
     assert move_board_item_result['item']['id']
     assert move_board_item_result['item']['createdAt']

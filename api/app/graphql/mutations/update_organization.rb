@@ -2,18 +2,18 @@ module Mutations
   class UpdateOrganization < Mutations::BaseMutation
     description 'Update an organization.'
 
-    argument :organization_id, ID, required: true
+    argument :organization_id, ID, required: true, loads: Types::OrganizationType
     argument :name, String, required: false
 
     field :organization, Types::OrganizationType, null: true
-    field :errors, [String], null: false
+    field :errors, [String], null: true
 
     def resolve(**args)
-      organization = IssueTrackerSchema.object_from_id(args[:organization_id])
+      organization = args[:organization]
       update_args = args.slice(:name).compact
 
       if organization.update(update_args)
-        { organization: organization, errors: [] }
+        { organization: organization }
       else
         { errors: organization.errors.full_messages }
       end

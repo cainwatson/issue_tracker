@@ -10,7 +10,7 @@ module Mutations
     argument :user_creator_id, ID, required: true
 
     field :project, Types::ProjectType, null: true
-    field :errors, [String], null: false
+    field :errors, [String], null: true
 
     def resolve(**args)
       user_creator = IssueTrackerSchema.object_from_id(args[:user_creator_id])
@@ -24,12 +24,11 @@ module Mutations
         user_creator: user_creator
       )
 
-      return { errors: project.errors.full_messages } if project.invalid?
-
-      {
-        project: project,
-        errors: []
-      }
+      if project.invalid?
+        { errors: project.errors.full_messages }
+      else
+        { project: project }
+      end
     end
   end
 end

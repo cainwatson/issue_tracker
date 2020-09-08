@@ -39,7 +39,7 @@ class CreateProjectMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     create_project_result = result['data']['createProject']
 
-    assert_equal create_project_result['errors'], []
+    assert_nil create_project_result['errors']
 
     assert create_project_result['project']['id']
     assert create_project_result['project']['createdAt']
@@ -89,7 +89,7 @@ class CreateProjectMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     create_project_result = result['data']['createProject']
 
-    assert_equal create_project_result['errors'], []
+    assert_nil create_project_result['errors']
     assert create_project_result['project']['id']
     assert create_project_result['project']['createdAt']
     assert create_project_result['project']['updatedAt']

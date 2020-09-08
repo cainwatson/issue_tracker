@@ -6,19 +6,18 @@ module Mutations
     argument :position, Int, required: true
 
     field :item, Types::BoardItemType, null: true
-    field :errors, [String], null: false
+    field :errors, [String], null: true
 
     def resolve(**args)
       item = IssueTrackerSchema.object_from_id(args[:item_id])
 
       item.update(column_order_position: args[:position])
 
-      return { errors: item.errors.full_messages } if item.invalid?
-
-      {
-        item: item,
-        errors: []
-      }
+      if item.invalid?
+        { errors: item.errors.full_messages }
+      else
+        { item: item }
+      end
     end
   end
 end

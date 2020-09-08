@@ -53,7 +53,7 @@ type CreateBoardColumnPayload {
   """
   clientMutationId: String
   column: BoardColumn
-  errors: [String!]!
+  errors: [String!]
 }
 
 """
@@ -92,7 +92,7 @@ type CreateBoardItemPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   item: BoardItem
 }
 
@@ -106,7 +106,7 @@ type CreateBoardPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
 }
 
 """
@@ -133,7 +133,7 @@ type CreateIssuePayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   issue: Issue
 }
 
@@ -157,7 +157,7 @@ type CreateOrganizationPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   organization: Organization
 }
 
@@ -185,7 +185,7 @@ type CreateProjectPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   project: Project
 }
 
@@ -261,7 +261,7 @@ type MoveBoardColumnPayload {
   """
   clientMutationId: String
   column: BoardColumn
-  errors: [String!]!
+  errors: [String!]
 }
 
 """
@@ -284,7 +284,7 @@ type MoveBoardItemPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   item: BoardItem
 }
 
@@ -512,7 +512,7 @@ type UpdateIssuePayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   issue: Issue
 }
 
@@ -536,7 +536,7 @@ type UpdateOrganizationPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errors: [String!]
   organization: Organization
 }
 

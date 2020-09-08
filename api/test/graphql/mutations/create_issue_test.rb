@@ -27,7 +27,7 @@ class CreateIssueMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     create_issue_result = result['data']['createIssue']
 
-    assert_equal create_issue_result['errors'], []
+    assert_nil create_issue_result['errors']
 
     assert create_issue_result['issue']['id']
     assert create_issue_result['issue']['createdAt']
@@ -67,7 +67,7 @@ class CreateIssueMutationTest < ActiveSupport::TestCase
     result = graphql_query(query_string, variables: { 'input' => input })
     create_issue_result = result['data']['createIssue']
 
-    assert_equal create_issue_result['errors'], []
+    assert_nil create_issue_result['errors']
 
     assert create_issue_result['issue']['boardItems']
     assert_equal create_issue_result['issue']['boardItems'].length, 1
