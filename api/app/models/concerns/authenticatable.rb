@@ -6,6 +6,7 @@ module Authenticatable
 
     before_save :hash_password
     before_create :initialize_jti
+    after_save :clear_password
 
     validates :email, presence: true, uniqueness: true
     validates :password, presence: true, length: { minimum: 8 }
@@ -55,6 +56,10 @@ module Authenticatable
   def hash_password
     hasher = Argon2::Password.new
     self.password_digest = hasher.create(password)
+  end
+
+  def clear_password
+    self.password = nil
   end
 
   def initialize_jti
