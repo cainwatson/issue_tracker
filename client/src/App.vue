@@ -1,29 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <p uk-margin>
+      <button class="uk-button uk-button-default">Default</button>
+      <button class="uk-button uk-button-primary">Primary</button>
+      <button class="uk-button uk-button-secondary">Secondary</button>
+      <button class="uk-button uk-button-danger">Danger</button>
+      <button class="uk-button uk-button-text">Text</button>
+      <button class="uk-button uk-button-link">Link</button>
+    </p>
+    <p>
+      <button class="uk-button uk-button-default">Default</button>
+      <button class="uk-button uk-button-primary">Primary</button>
+      <button class="uk-button uk-button-secondary">Secondary</button>
+      <button class="uk-button uk-button-danger">Danger</button>
+      <button class="uk-button uk-button-text">Text</button>
+      <button class="uk-button uk-button-link">Link</button>
+    </p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld
-  }
-});
+  name: 'App',
+})
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss" scoped>
+// Custom variables and variable overwrites.
+/* $global-link-color: #da7d02; */
+
+@import 'uikit/src/scss/variables-theme.scss';
+@import 'uikit/src/scss/mixins-theme.scss';
+
+// Custom mixin overwrites.
+/* @mixin hook-card() {
+  color: #000;
+} */
+
+@import 'uikit/src/scss/uikit-theme.scss';
 </style>
