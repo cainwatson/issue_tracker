@@ -1,33 +1,24 @@
 <template>
-  <div>
-    <p uk-margin>
-      <button class="uk-button uk-button-default">Default</button>
-      <button class="uk-button uk-button-primary">Primary</button>
-      <button class="uk-button uk-button-secondary">Secondary</button>
-      <button class="uk-button uk-button-danger">Danger</button>
-      <button class="uk-button uk-button-text">Text</button>
-      <button class="uk-button uk-button-link">Link</button>
-    </p>
-    <p>
-      <button class="uk-button uk-button-default">Default</button>
-      <button class="uk-button uk-button-primary">Primary</button>
-      <button class="uk-button uk-button-secondary">Secondary</button>
-      <button class="uk-button uk-button-danger">Danger</button>
-      <button class="uk-button uk-button-text">Text</button>
-      <button class="uk-button uk-button-link">Link</button>
-    </p>
-  </div>
+  <main>
+    <side-bar-layout>
+      <router-view></router-view>
+    </side-bar-layout>
+  </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import SideBarLayout from './components/SideBarLayout'
 
 export default defineComponent({
   name: 'App',
+  components: {
+    SideBarLayout,
+  },
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // Custom variables and variable overwrites.
 /* $global-link-color: #da7d02; */
 
