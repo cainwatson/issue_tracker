@@ -59,7 +59,16 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {},
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "semi": false,
+          "trailingComma": "all"
+        }
+      ]
+    },
     "overrides": [
       {
         "files": [
