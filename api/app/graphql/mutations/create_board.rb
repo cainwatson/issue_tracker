@@ -2,19 +2,16 @@ module Mutations
   class CreateBoard < Mutations::BaseMutation
     description 'Create a new project board.'
 
+    argument :user_creator_id, ID, required: true, loads: Types::UserType
+    argument :project_id, ID, required: true, loads: Types::ProjectType
     argument :name, String, required: true
-    argument :user_creator_id, ID, required: true
-    argument :project_id, ID, required: true
 
     field :board, Types::BoardType, null: true
     field :errors, [String], null: true
 
-    def resolve(**args)
-      user_creator = IssueTrackerSchema.object_from_id(args[:user_creator_id])
-      project = IssueTrackerSchema.object_from_id(args[:project_id])
-
+    def resolve(user_creator:, project:, name:)
       board = Projects::Board.create(
-        name: args[:name],
+        name: name,
         user_creator: user_creator,
         project: project
       )

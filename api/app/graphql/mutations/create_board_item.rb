@@ -2,25 +2,20 @@ module Mutations
   class CreateBoardItem < Mutations::BaseMutation
     description 'Create a new item on a project board.'
 
-    argument :user_creator_id, ID, required: true
-    argument :board_id, ID, required: true
-    argument :column_id, ID, required: false
-    argument :issue_id, ID, required: false
+    argument :user_creator_id, ID, required: true, loads: Types::UserType
+    argument :board_id, ID, required: true, loads: Types::BoardType
+    argument :column_id, ID, required: false, loads: Types::BoardColumnType
+    argument :issue_id, ID, required: false, loads: Types::IssueType
 
     field :item, Types::BoardItemType, null: true
     field :errors, [String], null: true
 
     def resolve(**args)
-      user_creator = IssueTrackerSchema.object_from_id(args[:user_creator_id])
-      board = IssueTrackerSchema.object_from_id(args[:board_id])
-      column = IssueTrackerSchema.object_from_id(args[:column_id])
-      issue = IssueTrackerSchema.object_from_id(args[:issue_id])
-
       item = Projects::BoardItem.create(
-        user_creator: user_creator,
-        board: board,
-        column: column,
-        issue: issue
+        user_creator: args[:user_creator],
+        board: args[:board],
+        column: args[:column],
+        issue: args[:issue]
       )
 
       if item.invalid?
