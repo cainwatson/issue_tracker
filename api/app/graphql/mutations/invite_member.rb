@@ -13,7 +13,7 @@ module Mutations
       membership = Organizations::Membership.create(
         organization: organization,
         user_from: user_from,
-        user_to: user_to,
+        user_to: user_to
       )
 
       if membership.invalid?

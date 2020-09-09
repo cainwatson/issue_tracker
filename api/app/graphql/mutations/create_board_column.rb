@@ -11,9 +11,9 @@ module Mutations
 
     def resolve(user_creator:, board:, name:)
       column = Projects::BoardColumn.create(
-        name: name,
         user_creator: user_creator,
-        board: board
+        board: board,
+        name: name
       )
 
       if column.invalid?

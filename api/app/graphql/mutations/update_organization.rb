@@ -8,8 +8,7 @@ module Mutations
     field :organization, Types::OrganizationType, null: true
     field :errors, [String], null: true
 
-    def resolve(**args)
-      organization = args[:organization]
+    def resolve(organization:, **args)
       update_args = args.slice(:name).compact
 
       if organization.update(update_args)

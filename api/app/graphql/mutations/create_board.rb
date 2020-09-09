@@ -11,9 +11,9 @@ module Mutations
 
     def resolve(user_creator:, project:, name:)
       board = Projects::Board.create(
-        name: name,
         user_creator: user_creator,
-        project: project
+        project: project,
+        name: name
       )
 
       if board.invalid?

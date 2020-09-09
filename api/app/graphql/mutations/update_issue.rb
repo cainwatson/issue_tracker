@@ -9,8 +9,7 @@ module Mutations
     field :issue, Types::IssueType, null: true
     field :errors, [String], null: true
 
-    def resolve(**args)
-      issue = args[:issue]
+    def resolve(issue:, **args)
       update_args = args.slice(:summary, :description).compact
 
       if issue.update(update_args)

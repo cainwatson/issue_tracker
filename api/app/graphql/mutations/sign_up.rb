@@ -12,11 +12,11 @@ module Mutations
     field :token, String, null: true
     field :errors, [String], null: true
 
-    def resolve(**args)
-      user = Accounts::User.new(email: args[:email], password: args[:password])
+    def resolve(email:, password:, first_name:, **args)
+      user = Accounts::User.new(email: email, password: password)
       profile = Profiles::Profile.new(
         user: user,
-        first_name: args[:first_name],
+        first_name: first_name,
         last_name: args[:last_name],
         photo_url: args[:photo_url]
       )

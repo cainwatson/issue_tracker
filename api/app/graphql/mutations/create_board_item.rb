@@ -10,10 +10,10 @@ module Mutations
     field :item, Types::BoardItemType, null: true
     field :errors, [String], null: true
 
-    def resolve(**args)
+    def resolve(user_creator:, board:, **args)
       item = Projects::BoardItem.create(
-        user_creator: args[:user_creator],
-        board: args[:board],
+        user_creator: user_creator,
+        board: board,
         column: args[:column],
         issue: args[:issue]
       )
