@@ -24,6 +24,12 @@ Metrics/ClassLength:
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods.
 Metrics/MethodLength:
   Max: 16
+  Exclude:
+    - 'app/graphql/mutations/create_issue.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/graphql/mutations/create_issue.rb'
 
 # Offense count: 39
 Style/Documentation:

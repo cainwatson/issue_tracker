@@ -17,5 +17,6 @@ module Types
     field :move_board_item, mutation: Mutations::MoveBoardItem
 
     field :invite_member, mutation: Mutations::InviteMember
+    field :remove_member, mutation: Mutations::RemoveMember
   end
 end
