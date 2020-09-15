@@ -1,7 +1,7 @@
 <template>
   <div class="uk-flex">
     <side-bar />
-    <div class="uk-padding">
+    <div class="uk-width-expand	uk-padding">
       <slot />
     </div>
   </div>
