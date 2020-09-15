@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import SideBarLayout from './components/SideBarLayout'
+import SideBarLayout from './components/SideBarLayout.vue'
 
 export default defineComponent({
   name: 'App',
