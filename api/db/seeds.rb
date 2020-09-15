@@ -56,6 +56,16 @@ end
 
 users = Accounts::User.all.to_a
 
+users.map.with_index do |user, _user_index|
+  10.times do |project_index|
+    Project.create(
+      name: "My project #{project_index + 1}",
+      owner: user,
+      user_creator: user
+    )
+  end
+end
+
 organizations = users.map.with_index do |user, index|
   Organizations::Organization.create(
     name: "Org #{index + 1}",
@@ -63,20 +73,17 @@ organizations = users.map.with_index do |user, index|
   )
 end
 
-projects = organizations.flat_map.with_index do |organization, index|
+organizations.flat_map.with_index do |organization, index|
   [
     Project.create(
       name: "Project #{index + 1}",
       owner: organization,
       user_creator: organization.user_creator
-    ),
-    Project.create(
-      name: "User Project #{index + 1}",
-      owner: organization.user_creator,
-      user_creator: organization.user_creator
     )
   ]
 end
+
+projects = Project.all.to_a
 
 projects.each do |project|
   create_board(project: project)
