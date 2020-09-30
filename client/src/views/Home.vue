@@ -1,7 +1,12 @@
 <template>
-  <div class="home">
-    home page
-  </div>
+  <section>
+    <h1>Issue Tracker</h1>
+    <ul>
+      <li>
+        <router-link to="/signup">Sign Up</router-link>
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script lang="ts">
