@@ -1,6 +1,7 @@
 module Types
   class MutationType < Types::BaseObject
     field :sign_up, mutation: Mutations::SignUp
+    field :password_sign_in, mutation: Mutations::PasswordSignIn
     field :token_sign_in, mutation: Mutations::TokenSignIn
 
     field :create_organization, mutation: Mutations::CreateOrganization
