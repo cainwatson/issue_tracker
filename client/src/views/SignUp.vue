@@ -85,6 +85,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
+import { AppState } from '../store'
 
 const defaultFieldValues = {
   email: '',
@@ -97,7 +98,7 @@ const defaultFieldValues = {
 export default defineComponent({
   name: 'SignUp',
   setup() {
-    const store = useStore()
+    const store = useStore<AppState>()
     const router = useRouter()
     const signUpFields = reactive({ ...defaultFieldValues })
     const errors = ref<string[]>([])
@@ -146,7 +147,7 @@ export default defineComponent({
 
       errors.value = []
 
-      store.commit('signIn', { jwt: signUpPayload.token })
+      store.commit('account/signIn', { jwt: signUpPayload.token })
       router.push('/dashboard')
     })
 
