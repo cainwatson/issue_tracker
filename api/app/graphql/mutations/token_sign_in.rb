@@ -1,5 +1,5 @@
 module Mutations
-  class SignIn < Mutations::BaseMutation
+  class TokenSignIn < Mutations::BaseMutation
     description 'Create a new user.'
 
     argument :token, String, required: true
