@@ -5,6 +5,9 @@
       <li>
         <router-link to="/signup">Sign Up</router-link>
       </li>
+      <li>
+        <router-link to="/signin">Sign In</router-link>
+      </li>
     </ul>
   </section>
 </template>
