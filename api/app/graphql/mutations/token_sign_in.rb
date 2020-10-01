@@ -1,6 +1,6 @@
 module Mutations
   class TokenSignIn < Mutations::BaseMutation
-    description 'Create a new user.'
+    description 'Return user with JWT token.'
 
     argument :token, String, required: true
 

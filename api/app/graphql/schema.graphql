@@ -345,7 +345,7 @@ type Mutation {
   signUp(input: SignUpInput!): SignUpPayload
 
   """
-  Create a new user.
+  Return user with JWT token.
   """
   tokenSignIn(input: TokenSignInInput!): TokenSignInPayload
 
