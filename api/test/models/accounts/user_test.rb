@@ -15,6 +15,14 @@ module Accounts
       assert_not_equal user.password_digest, password
     end
 
+    test 'allows verifying password' do
+      password = 'i5uTwEdAJ0HMg4cXMEf4f'
+      user = Accounts::User.create(email: 'test@test.test', password: password)
+
+      assert_not user.valid_password?('incorrectpwd')
+      assert user.valid_password?(password)
+    end
+
     test 'generates jti on creation' do
       user = Accounts::User.create(email: 'test@test.test', password: 'i5uTwEdAJ0HMg4cXMEf4f')
       assert user.jti

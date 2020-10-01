@@ -51,6 +51,10 @@ module Authenticatable
     update_column(:jti, generate_jti)
   end
 
+  def valid_password?(password)
+    Argon2::Password.verify_password(password, password_digest)
+  end
+
   private
 
   def hash_password
