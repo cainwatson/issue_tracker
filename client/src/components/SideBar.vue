@@ -3,7 +3,9 @@
     class="uk-width-medium uk-padding uk-light uk-background-secondary"
     uk-height-viewport
   >
-    <h1 class="uk-text-center uk-margin-medium-bottom">Issue Tracker</h1>
+    <router-link to="/dashboard" class="uk-link-reset">
+      <h1 class="uk-text-center uk-margin-medium-bottom">Issue Tracker</h1>
+    </router-link>
     <nav>
       <ul class="uk-list uk-list-large">
         <li>
