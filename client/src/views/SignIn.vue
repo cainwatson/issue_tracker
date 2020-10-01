@@ -1,13 +1,105 @@
 <template>
   <section>
     <h1>Sign In</h1>
+    <form @submit.prevent="handleSubmit">
+      <ul v-if="errors.length > 0">
+        <li v-for="error in errors" :key="error">
+          {{ error }}
+        </li>
+      </ul>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="sign-in-email">Email:</label>
+        <input
+          type="email"
+          v-model="signInFields.email"
+          class="uk-input"
+          id="sign-in-email"
+        />
+      </div>
+
+      <div class="uk-margin">
+        <label class="uk-form-label" for="sign-in-password">Password:</label>
+        <input
+          type="password"
+          v-model="signInFields.password"
+          class="uk-input"
+          id="sign-in-password"
+        />
+      </div>
+
+      <div class="uk-margin">
+        <button
+          type="submit"
+          :disabled="loading"
+          class="uk-button uk-button-primary"
+        >
+          Sign In
+        </button>
+      </div>
+    </form>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { useMutation } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
 
 export default defineComponent({
   name: 'SignIn',
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    const signInFields = reactive({
+      email: '',
+      password: '',
+    })
+    const errors = ref<string[]>([])
+    const {
+      loading,
+      mutate: signInMutation,
+      onDone: handleSuccess,
+    } = useMutation(gql`
+      mutation signIn($signInFields: PasswordSignInInput!) {
+        passwordSignIn(input: $signInFields) {
+          errors
+          token
+          user {
+            id
+          }
+        }
+      }
+    `)
+
+    const handleSubmit = () => {
+      signInMutation({
+        signInFields,
+      })
+    }
+
+    handleSuccess(response => {
+      const signInPayload = response?.data?.passwordSignIn
+
+      if (signInPayload?.errors) {
+        errors.value = signInPayload?.errors
+        return
+      }
+
+      errors.value = []
+
+      store.commit('signIn', { jwt: signInPayload.token })
+      router.push('/dashboard')
+    })
+
+    return {
+      errors,
+      loading,
+      signInFields,
+      handleSubmit,
+    }
+  },
 })
 </script>
