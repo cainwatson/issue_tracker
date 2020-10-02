@@ -18,5 +18,11 @@ export const accountStore: Module<AccountState, AccountState> = {
       state.jwt = jwt
       state.isLoggedIn = true
     },
+    signOut(state) {
+      localStorage.removeItem('jwt')
+
+      state.jwt = null
+      state.isLoggedIn = false
+    },
   },
 }
