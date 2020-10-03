@@ -1,0 +1,24 @@
+query userOrganizations($userId: ID!) {
+  node(id: $userId) {
+    ... on User {
+      memberships {
+        id
+        createdAt
+        updatedAt
+        userFrom {
+          id
+        }
+        userTo {
+          id
+        }
+        organization {
+          id
+          createdAt
+          updatedAt
+          name
+          photoUrl
+        }
+      }
+    }
+  }
+}
