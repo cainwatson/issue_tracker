@@ -540,12 +540,14 @@ export type User = Node & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
-export type MyProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyProjectsQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
 
 
 export type MyProjectsQuery = (
   { __typename?: 'Query' }
-  & { users: Array<(
+  & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | { __typename?: 'Organization' } | { __typename?: 'Profile' } | { __typename?: 'Project' } | (
     { __typename?: 'User' }
     & { projects: Array<(
       { __typename?: 'Project' }
@@ -620,11 +622,13 @@ export type GetProjectQuery = (
 
 
 export const MyProjectsDocument = gql`
-    query myProjects {
-  users {
-    projects {
-      id
-      name
+    query myProjects($userId: ID!) {
+  node(id: $userId) {
+    ... on User {
+      projects {
+        id
+        name
+      }
     }
   }
 }
@@ -642,11 +646,12 @@ export const MyProjectsDocument = gql`
  * @example
  * const { result, loading, error } = useMyProjectsQuery(
  *   {
+ *      userId: // value for 'userId'
  *   }
  * );
  */
-export function useMyProjectsQuery(options: VueApolloComposable.UseQueryOptions<MyProjectsQuery, MyProjectsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyProjectsQuery, MyProjectsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyProjectsQuery, MyProjectsQueryVariables>> = {}) {
-            return VueApolloComposable.useQuery<MyProjectsQuery, undefined>(MyProjectsDocument, undefined, options);
+export function useMyProjectsQuery(variables: MyProjectsQueryVariables | VueCompositionApi.Ref<MyProjectsQueryVariables> | ReactiveFunction<MyProjectsQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyProjectsQuery, MyProjectsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyProjectsQuery, MyProjectsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyProjectsQuery, MyProjectsQueryVariables>> = {}) {
+            return VueApolloComposable.useQuery<MyProjectsQuery, MyProjectsQueryVariables>(MyProjectsDocument, variables, options);
           }
 export type MyProjectsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MyProjectsQuery, MyProjectsQueryVariables>;
 export const PasswordSignInDocument = gql`

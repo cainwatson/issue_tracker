@@ -1,8 +1,10 @@
-query myProjects {
-  users {
-    projects {
-      id
-      name
+query myProjects($userId: ID!) {
+  node(id: $userId) {
+    ... on User {
+      projects {
+        id
+        name
+      }
     }
   }
 }

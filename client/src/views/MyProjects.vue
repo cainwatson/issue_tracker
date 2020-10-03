@@ -1,6 +1,10 @@
 <template>
   <section>
     <h1>Projects</h1>
+    <div v-if="loading" uk-spinner></div>
+    <p v-if="!loading && projects.length === 0">
+      It looks like you don't have any projects.
+    </p>
     <ul
       v-if="projects"
       class="uk-child-width-1-2@m uk-child-width-1-3@l"
@@ -22,14 +26,24 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 import { useResult } from '@vue/apollo-composable'
 import { useMyProjectsQuery } from '../generated/graphql'
+import { AppState } from '../store'
 
 export default defineComponent({
   name: 'MyProjects',
   setup() {
-    const { result, loading } = useMyProjectsQuery()
-    const projects = useResult(result, [], data => data.users[0].projects)
+    const store = useStore<AppState>()
+    const { result, loading } = useMyProjectsQuery({
+      userId: store.state.account.user?.id || '',
+    })
+    const projects = useResult(result, [], data => {
+      if (data.node?.__typename === 'User') {
+        return data.node.projects
+      }
+      return []
+    })
 
     return {
       loading,
