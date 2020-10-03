@@ -1,19 +1,18 @@
 <template>
   <section>
     <h1>Dashboard</h1>
-    {{ jwt }}
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+// import { AppState } from '../store'
 
 export default defineComponent({
   name: 'Dashboard',
   setup() {
-    const store = useStore()
-    return { jwt: store.state.jwt }
+    // const store = useStore<AppState>()
   },
 })
 </script>
