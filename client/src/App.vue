@@ -46,7 +46,7 @@ export default defineComponent({
       }
 
       store.commit('account/signIn', {
-        jwt: store.state.account.jwt,
+        jwt: signInPayload?.token,
         user: signInPayload?.user,
       })
     })

@@ -490,6 +490,7 @@ export type TokenSignInPayload = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   errors?: Maybe<Array<Scalars['String']>>;
+  token?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
 };
 
@@ -596,7 +597,7 @@ export type TokenSignInMutation = (
   { __typename?: 'Mutation' }
   & { tokenSignIn?: Maybe<(
     { __typename?: 'TokenSignInPayload' }
-    & Pick<TokenSignInPayload, 'errors'>
+    & Pick<TokenSignInPayload, 'errors' | 'token'>
     & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id' | 'createdAt' | 'updatedAt' | 'email'>
@@ -724,6 +725,7 @@ export const TokenSignInDocument = gql`
     mutation tokenSignIn($fields: TokenSignInInput!) {
   tokenSignIn(input: $fields) {
     errors
+    token
     user {
       id
       createdAt

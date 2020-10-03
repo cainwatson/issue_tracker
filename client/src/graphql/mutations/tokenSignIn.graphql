@@ -1,6 +1,7 @@
 mutation tokenSignIn($fields: TokenSignInInput!) {
   tokenSignIn(input: $fields) {
     errors
+    token
     user {
       id
       createdAt
