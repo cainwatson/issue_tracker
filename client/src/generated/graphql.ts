@@ -565,7 +565,7 @@ export type PasswordSignInMutation = (
     & Pick<PasswordSignInPayload, 'errors' | 'token'>
     & { user?: Maybe<(
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'createdAt' | 'updatedAt' | 'email'>
     )> }
   )> }
 );
@@ -582,7 +582,7 @@ export type SignUpMutation = (
     & Pick<SignUpPayload, 'errors' | 'token'>
     & { user?: Maybe<(
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'createdAt' | 'updatedAt' | 'email'>
     )> }
   )> }
 );
@@ -599,7 +599,7 @@ export type TokenSignInMutation = (
     & Pick<TokenSignInPayload, 'errors'>
     & { user?: Maybe<(
       { __typename?: 'User' }
-      & Pick<User, 'id'>
+      & Pick<User, 'id' | 'createdAt' | 'updatedAt' | 'email'>
     )> }
   )> }
 );
@@ -655,6 +655,9 @@ export const PasswordSignInDocument = gql`
     token
     user {
       id
+      createdAt
+      updatedAt
+      email
     }
   }
 }
@@ -688,6 +691,9 @@ export const SignUpDocument = gql`
     token
     user {
       id
+      createdAt
+      updatedAt
+      email
     }
   }
 }
@@ -720,6 +726,9 @@ export const TokenSignInDocument = gql`
     errors
     user {
       id
+      createdAt
+      updatedAt
+      email
     }
   }
 }

@@ -4,6 +4,9 @@ mutation signUp($fields: SignUpInput!) {
     token
     user {
       id
+      createdAt
+      updatedAt
+      email
     }
   }
 }

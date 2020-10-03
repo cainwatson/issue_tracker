@@ -3,6 +3,9 @@ mutation tokenSignIn($fields: TokenSignInInput!) {
     errors
     user {
       id
+      createdAt
+      updatedAt
+      email
     }
   }
 }

@@ -87,7 +87,10 @@ export default defineComponent({
 
       errors.value = []
 
-      store.commit('account/signIn', { jwt: signInPayload?.token })
+      store.commit('account/signIn', {
+        jwt: signInPayload?.token,
+        user: signInPayload?.user,
+      })
       router.push(redirect.value || '/dashboard')
     })
 
