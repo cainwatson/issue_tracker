@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { AppState } from './store'
 import { useTokenSignInMutation } from './generated/graphql'
 import SideBarLayout from './components/SideBarLayout.vue'
@@ -26,6 +27,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore<AppState>()
+    const router = useRouter()
 
     const {
       loading: loadingSignIn,
@@ -56,6 +58,11 @@ export default defineComponent({
         jwt: signInPayload?.token,
         user: signInPayload?.user,
       })
+
+      const { path, query } = router.currentRoute.value
+      if (path === '/signin' && query.redirect) {
+        router.replace(query.redirect as string)
+      }
     })
 
     return {
