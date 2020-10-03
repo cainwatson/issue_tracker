@@ -547,6 +547,7 @@ type TokenSignInPayload {
   """
   clientMutationId: String
   errors: [String!]
+  token: String
   user: User
 }
 

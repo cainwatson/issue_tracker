@@ -6,6 +6,7 @@ class TokenSignInMutationTest < ActiveSupport::TestCase
       mutation tokenSignIn($input: TokenSignInInput!) {
         tokenSignIn(input: $input) {
           errors
+          token
           user {
             id
             createdAt
@@ -22,6 +23,7 @@ class TokenSignInMutationTest < ActiveSupport::TestCase
     sign_in_result = result['data']['tokenSignIn']
 
     assert_equal sign_in_result['errors'], ['Invalid token']
+    assert_nil sign_in_result['token']
     assert_nil sign_in_result['user']
   end
 
@@ -30,6 +32,7 @@ class TokenSignInMutationTest < ActiveSupport::TestCase
       mutation tokenSignIn($input: TokenSignInInput!) {
         tokenSignIn(input: $input) {
           errors
+          token
           user {
             id
             createdAt
@@ -52,5 +55,6 @@ class TokenSignInMutationTest < ActiveSupport::TestCase
     assert sign_in_result['user']['createdAt']
     assert sign_in_result['user']['updatedAt']
     assert_equal sign_in_result['user']['email'], user.email
+    assert_equal sign_in_result['token'], user.jwt
   end
 end

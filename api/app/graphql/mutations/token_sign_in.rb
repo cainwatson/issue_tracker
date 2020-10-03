@@ -5,13 +5,14 @@ module Mutations
     argument :token, String, required: true
 
     field :user, Types::UserType, null: true
+    field :token, String, null: true
     field :errors, [String], null: true
 
     def resolve(token:)
       user = Accounts::User.from_jwt(token)
 
       if user
-        { user: user }
+        { user: user, token: user.jwt }
       else
         { errors: ['Invalid token'] }
       end
