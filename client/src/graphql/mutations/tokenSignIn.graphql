@@ -1,0 +1,8 @@
+mutation tokenSignIn($fields: TokenSignInInput!) {
+  tokenSignIn(input: $fields) {
+    errors
+    user {
+      id
+    }
+  }
+}

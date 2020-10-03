@@ -1,0 +1,8 @@
+query getProject($projectId: ID!) {
+  node(id: $projectId) {
+    ... on Project {
+      id
+      name
+    }
+  }
+}

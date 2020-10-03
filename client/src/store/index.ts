@@ -1,12 +1,15 @@
-import { createStore } from 'vuex'
+import { createLogger, createStore } from 'vuex'
 import { AccountState, accountStore } from './account'
 
 export interface AppState {
   account: AccountState
 }
 
-export default createStore({
-  strict: process.env.NODE_ENV !== 'production',
+const IS_DEV = process.env.NODE_ENV !== 'production'
+
+export default createStore<AppState>({
+  strict: IS_DEV,
+  plugins: IS_DEV ? [createLogger()] : [],
   modules: {
     account: accountStore,
   },

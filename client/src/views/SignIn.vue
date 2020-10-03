@@ -50,8 +50,7 @@
 import { defineComponent, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
-import { useMutation } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
+import { usePasswordSignInMutation } from '../generated/graphql'
 import { AppState } from '../store'
 
 export default defineComponent({
@@ -70,21 +69,11 @@ export default defineComponent({
       loading,
       mutate: signInMutation,
       onDone: handleSuccess,
-    } = useMutation(gql`
-      mutation signIn($signInFields: PasswordSignInInput!) {
-        passwordSignIn(input: $signInFields) {
-          errors
-          token
-          user {
-            id
-          }
-        }
-      }
-    `)
+    } = usePasswordSignInMutation({})
 
     const handleSubmit = () => {
       signInMutation({
-        signInFields,
+        fields: signInFields,
       })
     }
 
@@ -98,7 +87,7 @@ export default defineComponent({
 
       errors.value = []
 
-      store.commit('account/signIn', { jwt: signInPayload.token })
+      store.commit('account/signIn', { jwt: signInPayload?.token })
       router.push(redirect.value || '/dashboard')
     })
 

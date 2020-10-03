@@ -22,22 +22,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useQuery, useResult } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
+import { useResult } from '@vue/apollo-composable'
+import { useMyProjectsQuery } from '../generated/graphql'
 
 export default defineComponent({
   name: 'MyProjects',
   setup() {
-    const { result, loading } = useQuery(gql`
-      query {
-        users {
-          projects {
-            id
-            name
-          }
-        }
-      }
-    `)
+    const { result, loading } = useMyProjectsQuery()
     const projects = useResult(result, [], data => data.users[0].projects)
 
     return {

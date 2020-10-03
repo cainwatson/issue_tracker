@@ -1,0 +1,8 @@
+query myProjects {
+  users {
+    projects {
+      id
+      name
+    }
+  }
+}

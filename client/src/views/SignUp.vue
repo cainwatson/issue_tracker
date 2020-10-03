@@ -83,8 +83,7 @@
 import { defineComponent, ref, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import { useMutation } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
+import { useSignUpMutation } from '../generated/graphql'
 import { AppState } from '../store'
 
 const defaultFieldValues = {
@@ -106,17 +105,7 @@ export default defineComponent({
       loading,
       mutate: signUpMutation,
       onDone: handleSuccess,
-    } = useMutation(gql`
-      mutation signUp($signUpFields: SignUpInput!) {
-        signUp(input: $signUpFields) {
-          errors
-          token
-          user {
-            id
-          }
-        }
-      }
-    `)
+    } = useSignUpMutation({})
 
     const handleSubmit = () => {
       const {
@@ -133,7 +122,7 @@ export default defineComponent({
       }
 
       signUpMutation({
-        signUpFields: { email, password, firstName, lastName },
+        fields: { email, password, firstName, lastName },
       })
     }
 
@@ -147,7 +136,7 @@ export default defineComponent({
 
       errors.value = []
 
-      store.commit('account/signIn', { jwt: signUpPayload.token })
+      store.commit('account/signIn', { jwt: signUpPayload?.token })
       router.push('/dashboard')
     })
 
