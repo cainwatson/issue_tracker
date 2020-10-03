@@ -11,7 +11,7 @@ import { useResult } from '@vue/apollo-composable'
 import { useGetProjectQuery } from '../generated/graphql'
 
 export default defineComponent({
-  name: 'MyProjects',
+  name: 'Project',
   setup() {
     const route = useRoute()
     const { result, loading } = useGetProjectQuery({
