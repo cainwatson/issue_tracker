@@ -58,6 +58,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "Project" */ '../views/Project.vue'),
   },
+  {
+    path: '/404',
+    name: 'Not Found',
+    meta: {
+      requiresAuth: false,
+    },
+    component: () =>
+      import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)',
+    redirect: '/404',
+  },
 ]
 
 const router = createRouter({
