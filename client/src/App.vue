@@ -1,14 +1,20 @@
 <template>
   <main>
-    <side-bar-layout>
+    <article class="uk-position-cover" v-if="loadingSignIn">
+      <div class="uk-position-center">
+        <div uk-spinner="ratio: 3"></div>
+        <p class="uk-text-center">Loading...</p>
+      </div>
+    </article>
+    <side-bar-layout v-else>
       <router-view></router-view>
     </side-bar-layout>
   </main>
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex'
 import { defineComponent, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import { AppState } from './store'
 import { useTokenSignInMutation } from './generated/graphql'
 import SideBarLayout from './components/SideBarLayout.vue'
@@ -22,6 +28,7 @@ export default defineComponent({
     const store = useStore<AppState>()
 
     const {
+      loading: loadingSignIn,
       mutate: tokenSignInMutation,
       onDone: handleTokenSignInSuccess,
     } = useTokenSignInMutation({})
@@ -51,7 +58,9 @@ export default defineComponent({
       })
     })
 
-    return {}
+    return {
+      loadingSignIn,
+    }
   },
 })
 </script>
