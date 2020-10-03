@@ -15,8 +15,16 @@
           :to="`/organizations/${organization.id}`"
           class="uk-link-toggle uk-link-reset"
         >
-          <article class="uk-card uk-card-default uk-card-body uk-card-muted">
-            <h1 class="uk-text-large">{{ organization.name }}</h1>
+          <article class="uk-card uk-card-default uk-card-muted">
+            <div class="uk-padding-small">
+              <img
+                :src="organization.photoUrl"
+                :alt="`${organization.name}'s avatar`"
+              />
+            </div>
+            <div class="uk-card-body">
+              <h1 class="uk-card-title">{{ organization.name }}</h1>
+            </div>
           </article>
         </router-link>
       </li>
