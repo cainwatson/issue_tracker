@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'faker'
+
 include Projects
 
 def create_board(project:)
@@ -27,9 +29,10 @@ def create_board(project:)
 end
 
 def add_issues_to_column(amount:, column:)
-  amount.times do |num|
+  amount.times do |_num|
     issue = Issue.create(
-      summary: "#{column.name} #{num + 1}",
+      summary: Faker::Company.bs,
+      description: Faker::Lorem.paragraph,
       project: column.board.project,
       user_creator: column.user_creator
     )
@@ -42,41 +45,45 @@ def add_issues_to_column(amount:, column:)
   end
 end
 
-5.times do |num|
+5.times do |_num|
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
   user = Accounts::User.create(
-    email: "user#{num}@test.test",
-    password: 'testpassword'
+    email: Faker::Internet.safe_email(name: first_name),
+    password: 'password'
   )
   _profile = Profiles::Profile.create(
     user: user,
-    first_name: "User ##{num}",
-    last_name: 'Test'
+    first_name: first_name,
+    last_name: last_name,
+    photo_url: Faker::Avatar.image
   )
 end
 
 users = Accounts::User.all.to_a
 
 users.map.with_index do |user, _user_index|
-  10.times do |project_index|
+  10.times do |_project_index|
     Project.create(
-      name: "My project #{project_index + 1}",
+      name: Faker::Superhero.name,
       owner: user,
       user_creator: user
     )
   end
 end
 
-organizations = users.map.with_index do |user, index|
+organizations = users.map.with_index do |user, _index|
   Organizations::Organization.create(
-    name: "Org #{index + 1}",
-    user_creator: user
+    name: Faker::Company.name,
+    user_creator: user,
+    photo_url: Faker::Company.logo
   )
 end
 
-organizations.flat_map.with_index do |organization, index|
+organizations.flat_map.with_index do |organization, _index|
   [
     Project.create(
-      name: "Project #{index + 1}",
+      name: Faker::Superhero.name,
       owner: organization,
       user_creator: organization.user_creator
     )
