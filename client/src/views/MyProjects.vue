@@ -28,14 +28,14 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { useResult } from '@vue/apollo-composable'
-import { useMyProjectsQuery } from '../generated/graphql'
+import { useUserProjectsQuery } from '../generated/graphql'
 import { AppState } from '../store'
 
 export default defineComponent({
   name: 'MyProjects',
   setup() {
     const store = useStore<AppState>()
-    const { result, loading } = useMyProjectsQuery({
+    const { result, loading } = useUserProjectsQuery({
       userId: store.state.account.user?.id || '',
     })
     const projects = useResult(result, [], data => {

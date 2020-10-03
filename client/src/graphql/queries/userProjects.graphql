@@ -1,4 +1,4 @@
-query myProjects($userId: ID!) {
+query userProjects($userId: ID!) {
   node(id: $userId) {
     ... on User {
       projects {
