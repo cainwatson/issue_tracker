@@ -1,5 +1,10 @@
 <template>
   <section>
+    <article v-if="redirect" class="uk-alert-warning" uk-alert>
+      <a class="uk-alert-close" uk-close></a>
+      <p>You must sign in to access that page.</p>
+    </article>
+
     <h1>Sign In</h1>
     <form @submit.prevent="handleSubmit">
       <ul v-if="errors.length > 0">
@@ -42,9 +47,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import { AppState } from '../store'
@@ -54,6 +59,8 @@ export default defineComponent({
   setup() {
     const store = useStore<AppState>()
     const router = useRouter()
+    const route = useRoute()
+    const redirect = computed(() => route.query.redirect as string)
     const signInFields = reactive({
       email: '',
       password: '',
@@ -92,7 +99,7 @@ export default defineComponent({
       errors.value = []
 
       store.commit('account/signIn', { jwt: signInPayload.token })
-      router.push('/dashboard')
+      router.push(redirect.value || '/dashboard')
     })
 
     return {
@@ -100,6 +107,7 @@ export default defineComponent({
       loading,
       signInFields,
       handleSubmit,
+      redirect,
     }
   },
 })
