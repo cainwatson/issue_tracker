@@ -591,6 +591,19 @@ export type TokenSignInMutation = (
   )> }
 );
 
+export type GetOrganizationQueryVariables = Exact<{
+  organizationId: Scalars['ID'];
+}>;
+
+
+export type GetOrganizationQuery = (
+  { __typename?: 'Query' }
+  & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | (
+    { __typename?: 'Organization' }
+    & Pick<Organization, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'photoUrl'>
+  ) | { __typename?: 'Profile' } | { __typename?: 'Project' } | { __typename?: 'User' }> }
+);
+
 export type GetProjectQueryVariables = Exact<{
   projectId: Scalars['ID'];
 }>;
@@ -755,6 +768,40 @@ export function useTokenSignInMutation(options: VueApolloComposable.UseMutationO
             return VueApolloComposable.useMutation<TokenSignInMutation, TokenSignInMutationVariables>(TokenSignInDocument, options);
           }
 export type TokenSignInMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TokenSignInMutation, TokenSignInMutationVariables>;
+export const GetOrganizationDocument = gql`
+    query getOrganization($organizationId: ID!) {
+  node(id: $organizationId) {
+    ... on Organization {
+      id
+      createdAt
+      updatedAt
+      name
+      photoUrl
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetOrganizationQuery__
+ *
+ * To run a query within a Vue component, call `useGetOrganizationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrganizationQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetOrganizationQuery(
+ *   {
+ *      organizationId: // value for 'organizationId'
+ *   }
+ * );
+ */
+export function useGetOrganizationQuery(variables: GetOrganizationQueryVariables | VueCompositionApi.Ref<GetOrganizationQueryVariables> | ReactiveFunction<GetOrganizationQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetOrganizationQuery, GetOrganizationQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetOrganizationQuery, GetOrganizationQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetOrganizationQuery, GetOrganizationQueryVariables>> = {}) {
+            return VueApolloComposable.useQuery<GetOrganizationQuery, GetOrganizationQueryVariables>(GetOrganizationDocument, variables, options);
+          }
+export type GetOrganizationQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetOrganizationQuery, GetOrganizationQueryVariables>;
 export const GetProjectDocument = gql`
     query getProject($projectId: ID!) {
   node(id: $projectId) {

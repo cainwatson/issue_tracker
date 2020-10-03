@@ -1,0 +1,11 @@
+query getOrganization($organizationId: ID!) {
+  node(id: $organizationId) {
+    ... on Organization {
+      id
+      createdAt
+      updatedAt
+      name
+      photoUrl
+    }
+  }
+}
