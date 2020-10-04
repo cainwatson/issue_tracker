@@ -81,12 +81,10 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: '/projects/:projectId/boards',
+        path: '/projects/:projectId/boards/:boardId',
         props: true,
         component: () =>
-          import(
-            /* webpackChunkName: "Project" */ '../views/ProjectBoards.vue'
-          ),
+          import(/* webpackChunkName: "Project" */ '../views/ProjectBoard.vue'),
       },
     ],
   },
