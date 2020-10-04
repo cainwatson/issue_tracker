@@ -12,7 +12,7 @@ include Projects
 
 def create_board(project:)
   board = Board.create(
-    name: "#{project.name}'s board'",
+    name: "#{project.name}'s board",
     project: project,
     user_creator: project.user_creator
   )
