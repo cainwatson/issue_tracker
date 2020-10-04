@@ -3,6 +3,20 @@ query getProject($projectId: ID!) {
     ... on Project {
       id
       name
+      issues {
+        id
+        createdAt
+        updatedAt
+        summary
+        description
+        number
+      }
+      boards {
+        id
+        createdAt
+        updatedAt
+        name
+      }
     }
   }
 }

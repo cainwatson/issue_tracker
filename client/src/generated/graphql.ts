@@ -614,6 +614,13 @@ export type GetProjectQuery = (
   & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | { __typename?: 'Organization' } | { __typename?: 'Profile' } | (
     { __typename?: 'Project' }
     & Pick<Project, 'id' | 'name'>
+    & { issues: Array<(
+      { __typename?: 'Issue' }
+      & Pick<Issue, 'id' | 'createdAt' | 'updatedAt' | 'summary' | 'description' | 'number'>
+    )>, boards: Array<(
+      { __typename?: 'Board' }
+      & Pick<Board, 'id' | 'createdAt' | 'updatedAt' | 'name'>
+    )> }
   ) | { __typename?: 'User' }> }
 );
 
@@ -808,6 +815,20 @@ export const GetProjectDocument = gql`
     ... on Project {
       id
       name
+      issues {
+        id
+        createdAt
+        updatedAt
+        summary
+        description
+        number
+      }
+      boards {
+        id
+        createdAt
+        updatedAt
+        name
+      }
     }
   }
 }
