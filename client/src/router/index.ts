@@ -85,7 +85,8 @@ const routes: Array<RouteRecordRaw> = [
     redirect: to => to.path + '/backlog',
     components: {
       ...withSideBar,
-      default: import(/* webpackChunkName: "Project" */ '../views/Project.vue'),
+      default: () =>
+        import(/* webpackChunkName: "Project" */ '../views/Project.vue'),
     },
     children: [
       {
