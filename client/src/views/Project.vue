@@ -3,18 +3,15 @@
   <section v-else>
     <h1>{{ project.name }}</h1>
     <ul uk-tab>
-      <li class="uk-active">
+      <li :class="{ 'uk-active': isActiveTab(Tab.Backlog) }">
         <router-link :to="`/projects/${project.id}/backlog`">
           Backlog
         </router-link>
       </li>
-      <li>
+      <li :class="{ 'uk-active': isActiveTab(Tab.Boards) }">
         <a href="#">
           Boards
-          <span
-            class="uk-margin-small-left"
-            uk-icon="icon: triangle-down"
-          ></span>
+          <span class="uk-margin-small-left" uk-icon="icon: triangle-down" />
         </a>
         <div uk-dropdown="mode: click">
           <ul class="uk-nav uk-dropdown-nav">
@@ -33,8 +30,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRoute } from 'vue-router'
 import { useResult } from '@vue/apollo-composable'
 import { useGetProjectQuery } from '../generated/graphql'
+
+enum Tab {
+  Backlog = '/backlog',
+  Boards = '/boards',
+}
 
 export default defineComponent({
   name: 'Project',
@@ -42,14 +45,19 @@ export default defineComponent({
     projectId: String,
   },
   setup(props) {
+    const route = useRoute()
     const { result, loading } = useGetProjectQuery({
       projectId: props.projectId || '',
     })
     const project = useResult(result, [], data => data.node)
 
+    const isActiveTab = (tab: Tab) => route.path.includes(tab)
+
     return {
       loading,
       project,
+      isActiveTab,
+      Tab,
     }
   },
 })
