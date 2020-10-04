@@ -1,0 +1,15 @@
+query getProjectIssues($projectId: ID!) {
+  node(id: $projectId) {
+    ... on Project {
+      id
+      issues {
+        id
+        createdAt
+        updatedAt
+        summary
+        description
+        number
+      }
+    }
+  }
+}

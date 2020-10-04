@@ -64,11 +64,23 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/projects/:projectId',
     name: 'Project',
+    props: true,
     meta: {
       requiresAuth: true,
     },
+    redirect: to => to.path + '/backlog',
     component: () =>
       import(/* webpackChunkName: "Project" */ '../views/Project.vue'),
+    children: [
+      {
+        path: '/projects/:projectId/backlog',
+        props: true,
+        component: () =>
+          import(
+            /* webpackChunkName: "Project" */ '../views/ProjectBacklog.vue'
+          ),
+      },
+    ],
   },
   {
     path: '/organizations/:organizationId',

@@ -614,12 +614,22 @@ export type GetProjectQuery = (
   & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | { __typename?: 'Organization' } | { __typename?: 'Profile' } | (
     { __typename?: 'Project' }
     & Pick<Project, 'id' | 'name'>
+  ) | { __typename?: 'User' }> }
+);
+
+export type GetProjectIssuesQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+}>;
+
+
+export type GetProjectIssuesQuery = (
+  { __typename?: 'Query' }
+  & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | { __typename?: 'Organization' } | { __typename?: 'Profile' } | (
+    { __typename?: 'Project' }
+    & Pick<Project, 'id'>
     & { issues: Array<(
       { __typename?: 'Issue' }
       & Pick<Issue, 'id' | 'createdAt' | 'updatedAt' | 'summary' | 'description' | 'number'>
-    )>, boards: Array<(
-      { __typename?: 'Board' }
-      & Pick<Board, 'id' | 'createdAt' | 'updatedAt' | 'name'>
     )> }
   ) | { __typename?: 'User' }> }
 );
@@ -815,20 +825,6 @@ export const GetProjectDocument = gql`
     ... on Project {
       id
       name
-      issues {
-        id
-        createdAt
-        updatedAt
-        summary
-        description
-        number
-      }
-      boards {
-        id
-        createdAt
-        updatedAt
-        name
-      }
     }
   }
 }
@@ -854,6 +850,44 @@ export function useGetProjectQuery(variables: GetProjectQueryVariables | VueComp
             return VueApolloComposable.useQuery<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, variables, options);
           }
 export type GetProjectQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetProjectQuery, GetProjectQueryVariables>;
+export const GetProjectIssuesDocument = gql`
+    query getProjectIssues($projectId: ID!) {
+  node(id: $projectId) {
+    ... on Project {
+      id
+      issues {
+        id
+        createdAt
+        updatedAt
+        summary
+        description
+        number
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProjectIssuesQuery__
+ *
+ * To run a query within a Vue component, call `useGetProjectIssuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectIssuesQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetProjectIssuesQuery(
+ *   {
+ *      projectId: // value for 'projectId'
+ *   }
+ * );
+ */
+export function useGetProjectIssuesQuery(variables: GetProjectIssuesQueryVariables | VueCompositionApi.Ref<GetProjectIssuesQueryVariables> | ReactiveFunction<GetProjectIssuesQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetProjectIssuesQuery, GetProjectIssuesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetProjectIssuesQuery, GetProjectIssuesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetProjectIssuesQuery, GetProjectIssuesQueryVariables>> = {}) {
+            return VueApolloComposable.useQuery<GetProjectIssuesQuery, GetProjectIssuesQueryVariables>(GetProjectIssuesDocument, variables, options);
+          }
+export type GetProjectIssuesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetProjectIssuesQuery, GetProjectIssuesQueryVariables>;
 export const UserOrganizationsDocument = gql`
     query userOrganizations($userId: ID!) {
   node(id: $userId) {

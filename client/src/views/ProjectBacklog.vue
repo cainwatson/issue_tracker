@@ -1,12 +1,14 @@
 <template>
+  <div v-if="loading" uk-spinner></div>
   <section
+    v-else
     uk-accordion
     multiple
     targets="ul > *"
     toggle="> article > .uk-accordion-title"
     content="> article > .uk-accordion-content"
   >
-    <ul v-if="issues.length > 0" class="uk-list uuk-list-large uk-list-striped">
+    <ul v-if="issues.length > 0" class="uk-list uk-list-striped">
       <li v-for="issue in issues" :key="issue.id">
         <article>
           <a class="uk-accordion-title uk-flex" href="#">
@@ -25,16 +27,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { Issue } from '../../generated/graphql'
+import { useResult } from '@vue/apollo-composable'
+import { defineComponent } from 'vue'
+import { useGetProjectIssuesQuery } from '../generated/graphql'
 
 export default defineComponent({
-  name: 'IssueList',
+  name: 'ProjectBacklog',
   props: {
-    issues: {
-      type: Array as PropType<Issue[]>,
-      required: true,
-    },
+    projectId: String,
+  },
+  setup(props) {
+    const { result, loading } = useGetProjectIssuesQuery({
+      projectId: props.projectId || '',
+    })
+    const issues = useResult(result, [], data => {
+      if (data.node?.__typename === 'Project') {
+        return data.node.issues
+      }
+    })
+
+    return {
+      loading,
+      issues,
+    }
   },
 })
 </script>
