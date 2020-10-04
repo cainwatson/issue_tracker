@@ -93,6 +93,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/organizations/:organizationId',
     name: 'Organization',
+    props: true,
     meta: {
       requiresAuth: true,
     },

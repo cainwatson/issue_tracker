@@ -6,16 +6,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useRoute } from 'vue-router'
 import { useResult } from '@vue/apollo-composable'
 import { useGetOrganizationQuery } from '../generated/graphql'
 
 export default defineComponent({
   name: 'Organizations',
-  setup() {
-    const route = useRoute()
+  props: {
+    organizationId: String,
+  },
+  setup(props) {
     const { result, loading } = useGetOrganizationQuery({
-      organizationId: route.params.organizationId as string,
+      organizationId: props.organizationId || '',
     })
     const organization = useResult(result, [], data => data.node)
 
