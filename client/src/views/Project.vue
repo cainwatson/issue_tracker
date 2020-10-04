@@ -12,12 +12,25 @@
         </router-link>
       </li>
       <li>
-        <router-link
-          :to="`/projects/${project.id}/boards`"
-          class="uuk-link-toggle uuk-link-reset"
-        >
+        <a href="#">
           Boards
-        </router-link>
+          <span
+            class="uk-margin-small-left"
+            uk-icon="icon: triangle-down"
+          ></span>
+        </a>
+        <div uk-dropdown>
+          <ul class="uk-nav uk-dropdown-nav">
+            <li v-for="board in project.boards" :key="board.id">
+              <router-link
+                :to="`/projects/${project.id}/boards/${board.id}`"
+                class="uuk-link-toggle uuk-link-reset"
+              >
+                {{ board.name }}
+              </router-link>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
     <router-view />
