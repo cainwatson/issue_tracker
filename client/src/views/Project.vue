@@ -16,7 +16,7 @@
             uk-icon="icon: triangle-down"
           ></span>
         </a>
-        <div uk-dropdown>
+        <div uk-dropdown="mode: click">
           <ul class="uk-nav uk-dropdown-nav">
             <li v-for="board in project.boards" :key="board.id">
               <router-link :to="`/projects/${project.id}/boards/${board.id}`">
