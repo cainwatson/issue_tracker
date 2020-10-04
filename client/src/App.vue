@@ -6,9 +6,12 @@
         <p class="uk-text-center">Loading...</p>
       </div>
     </article>
-    <side-bar-layout v-else>
-      <router-view></router-view>
-    </side-bar-layout>
+    <div v-else class="uk-flex">
+      <router-view name="sidebar" />
+      <div class="uk-width-expand	uk-padding">
+        <router-view />
+      </div>
+    </div>
   </main>
 </template>
 
@@ -18,13 +21,9 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { AppState } from './store'
 import { useTokenSignInMutation } from './generated/graphql'
-import SideBarLayout from './components/SideBarLayout.vue'
 
 export default defineComponent({
   name: 'App',
-  components: {
-    SideBarLayout,
-  },
   setup() {
     const store = useStore<AppState>()
     const router = useRouter()

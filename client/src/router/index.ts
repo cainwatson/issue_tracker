@@ -2,6 +2,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import store from '../store'
 import Home from '../views/Home.vue'
 
+const withSideBar = {
+  sidebar: () =>
+    import(/* webpackChunkName: "SideBar" */ '../components/SideBar.vue'),
+}
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -38,8 +43,11 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
-    component: () =>
-      import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard.vue'),
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(/* webpackChunkName: "Dashboard" */ '../views/Dashboard.vue'),
+    },
   },
   {
     path: '/me/projects',
@@ -47,8 +55,11 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
-    component: () =>
-      import(/* webpackChunkName: "MyProjects" */ '../views/MyProjects.vue'),
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(/* webpackChunkName: "MyProjects" */ '../views/MyProjects.vue'),
+    },
   },
   {
     path: '/me/organizations',
@@ -56,10 +67,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "MyOrganizations" */ '../views/MyOrganizations.vue'
-      ),
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(
+          /* webpackChunkName: "MyOrganizations" */ '../views/MyOrganizations.vue'
+        ),
+    },
   },
   {
     path: '/projects/:projectId',
@@ -69,8 +83,10 @@ const routes: Array<RouteRecordRaw> = [
       requiresAuth: true,
     },
     redirect: to => to.path + '/backlog',
-    component: () =>
-      import(/* webpackChunkName: "Project" */ '../views/Project.vue'),
+    components: {
+      ...withSideBar,
+      default: import(/* webpackChunkName: "Project" */ '../views/Project.vue'),
+    },
     children: [
       {
         path: '/projects/:projectId/backlog',
@@ -97,10 +113,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
-    component: () =>
-      import(
-        /* webpackChunkName: "Organization" */ '../views/Organization.vue'
-      ),
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(
+          /* webpackChunkName: "Organization" */ '../views/Organization.vue'
+        ),
+    },
   },
   {
     path: '/404',
@@ -108,8 +127,11 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: false,
     },
-    component: () =>
-      import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue'),
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue'),
+    },
   },
   {
     path: '/:pathMatch(.*)',
