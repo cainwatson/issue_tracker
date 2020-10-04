@@ -10,7 +10,7 @@ import { useResult } from '@vue/apollo-composable'
 import { useGetOrganizationQuery } from '../generated/graphql'
 
 export default defineComponent({
-  name: 'Organizations',
+  name: 'Organization',
   props: {
     organizationId: String,
   },
