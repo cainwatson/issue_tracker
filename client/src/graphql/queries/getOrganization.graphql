@@ -6,6 +6,10 @@ query getOrganization($organizationId: ID!) {
       updatedAt
       name
       photoUrl
+      projects {
+        id
+        name
+      }
     }
   }
 }

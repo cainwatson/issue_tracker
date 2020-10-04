@@ -601,6 +601,10 @@ export type GetOrganizationQuery = (
   & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | (
     { __typename?: 'Organization' }
     & Pick<Organization, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'photoUrl'>
+    & { projects: Array<(
+      { __typename?: 'Project' }
+      & Pick<Project, 'id' | 'name'>
+    )> }
   ) | { __typename?: 'Profile' } | { __typename?: 'Project' } | { __typename?: 'User' }> }
 );
 
@@ -823,6 +827,10 @@ export const GetOrganizationDocument = gql`
       updatedAt
       name
       photoUrl
+      projects {
+        id
+        name
+      }
     }
   }
 }
