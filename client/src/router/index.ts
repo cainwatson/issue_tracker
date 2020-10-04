@@ -74,6 +74,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/projects/:projectId/backlog',
+        name: 'Project Backlog',
         props: true,
         component: () =>
           import(
@@ -82,6 +83,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/projects/:projectId/boards/:boardId',
+        name: 'Project Boards',
         props: true,
         component: () =>
           import(/* webpackChunkName: "Project" */ '../views/ProjectBoard.vue'),
