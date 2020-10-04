@@ -4,10 +4,7 @@
     <h1>{{ project.name }}</h1>
     <ul uk-tab>
       <li class="uk-active">
-        <router-link
-          :to="`/projects/${project.id}/backlog`"
-          class="uuk-link-toggle uuk-link-reset"
-        >
+        <router-link :to="`/projects/${project.id}/backlog`">
           Backlog
         </router-link>
       </li>
@@ -22,10 +19,7 @@
         <div uk-dropdown>
           <ul class="uk-nav uk-dropdown-nav">
             <li v-for="board in project.boards" :key="board.id">
-              <router-link
-                :to="`/projects/${project.id}/boards/${board.id}`"
-                class="uuk-link-toggle uuk-link-reset"
-              >
+              <router-link :to="`/projects/${project.id}/boards/${board.id}`">
                 {{ board.name }}
               </router-link>
             </li>
