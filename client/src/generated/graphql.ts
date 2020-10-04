@@ -617,6 +617,23 @@ export type GetProjectQuery = (
   ) | { __typename?: 'User' }> }
 );
 
+export type GetProjectBoardsQueryVariables = Exact<{
+  projectId: Scalars['ID'];
+}>;
+
+
+export type GetProjectBoardsQuery = (
+  { __typename?: 'Query' }
+  & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | { __typename?: 'Organization' } | { __typename?: 'Profile' } | (
+    { __typename?: 'Project' }
+    & Pick<Project, 'id'>
+    & { boards: Array<(
+      { __typename?: 'Board' }
+      & Pick<Board, 'id' | 'createdAt' | 'updatedAt' | 'name'>
+    )> }
+  ) | { __typename?: 'User' }> }
+);
+
 export type GetProjectIssuesQueryVariables = Exact<{
   projectId: Scalars['ID'];
 }>;
@@ -850,6 +867,42 @@ export function useGetProjectQuery(variables: GetProjectQueryVariables | VueComp
             return VueApolloComposable.useQuery<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, variables, options);
           }
 export type GetProjectQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetProjectQuery, GetProjectQueryVariables>;
+export const GetProjectBoardsDocument = gql`
+    query getProjectBoards($projectId: ID!) {
+  node(id: $projectId) {
+    ... on Project {
+      id
+      boards {
+        id
+        createdAt
+        updatedAt
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProjectBoardsQuery__
+ *
+ * To run a query within a Vue component, call `useGetProjectBoardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectBoardsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetProjectBoardsQuery(
+ *   {
+ *      projectId: // value for 'projectId'
+ *   }
+ * );
+ */
+export function useGetProjectBoardsQuery(variables: GetProjectBoardsQueryVariables | VueCompositionApi.Ref<GetProjectBoardsQueryVariables> | ReactiveFunction<GetProjectBoardsQueryVariables>, options: VueApolloComposable.UseQueryOptions<GetProjectBoardsQuery, GetProjectBoardsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<GetProjectBoardsQuery, GetProjectBoardsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<GetProjectBoardsQuery, GetProjectBoardsQueryVariables>> = {}) {
+            return VueApolloComposable.useQuery<GetProjectBoardsQuery, GetProjectBoardsQueryVariables>(GetProjectBoardsDocument, variables, options);
+          }
+export type GetProjectBoardsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<GetProjectBoardsQuery, GetProjectBoardsQueryVariables>;
 export const GetProjectIssuesDocument = gql`
     query getProjectIssues($projectId: ID!) {
   node(id: $projectId) {

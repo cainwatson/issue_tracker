@@ -80,6 +80,14 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "Project" */ '../views/ProjectBacklog.vue'
           ),
       },
+      {
+        path: '/projects/:projectId/boards',
+        props: true,
+        component: () =>
+          import(
+            /* webpackChunkName: "Project" */ '../views/ProjectBoards.vue'
+          ),
+      },
     ],
   },
   {

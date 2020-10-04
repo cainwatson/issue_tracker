@@ -1,0 +1,13 @@
+query getProjectBoards($projectId: ID!) {
+  node(id: $projectId) {
+    ... on Project {
+      id
+      boards {
+        id
+        createdAt
+        updatedAt
+        name
+      }
+    }
+  }
+}
