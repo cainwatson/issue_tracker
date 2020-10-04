@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" uk-spinner></div>
+  <article v-if="loading" uk-spinner />
   <section v-else uk-grid class="uk-grid-small uk-child-width-auto">
     <section
       v-for="column in board.columns"

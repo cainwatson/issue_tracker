@@ -1,7 +1,7 @@
 <template>
-  <div v-if="loading" uk-spinner></div>
+  <article v-if="loading" uk-spinner />
   <section v-else>
-    <h1>{{ project.name }}</h1>
+    <h1 class="uk-margin-medium-bottom">{{ project.name }}</h1>
     <ul uk-tab>
       <li :class="{ 'uk-active': isActiveTab(Tab.Backlog) }">
         <router-link :to="`/projects/${project.id}/backlog`">

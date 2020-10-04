@@ -1,7 +1,7 @@
 <template>
   <article v-if="loading" uk-spinner />
   <section v-else>
-    <h1>Projects</h1>
+    <h1 class="uk-margin-medium-bottom">Projects</h1>
     <project-list
       :projects="projects"
       emptyProjectsMessage="It looks like you don't have any projects."

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Dashboard</h1>
+    <h1 class="uk-margin-medium-bottom">Dashboard</h1>
   </section>
 </template>
 

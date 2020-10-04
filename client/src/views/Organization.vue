@@ -1,7 +1,7 @@
 <template>
   <article v-if="loading" uk-spinner />
   <section v-else>
-    <h1>{{ organization.name }}</h1>
+    <h1 class="uk-margin-medium-bottom">{{ organization.name }}</h1>
     <article>
       <h2>Projects</h2>
       <project-list

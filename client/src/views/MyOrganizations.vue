@@ -1,15 +1,11 @@
 <template>
-  <section>
-    <h1>Organizations</h1>
-    <div v-if="loading" uk-spinner></div>
-    <p v-if="!loading && organizations.length === 0">
+  <article v-if="loading" uk-spinner />
+  <section v-else>
+    <h1 class="uk-margin-medium-bottom">Organizations</h1>
+    <p v-if="organizations.length === 0">
       It looks like you aren't apart of any organizations.
     </p>
-    <ul
-      v-if="organizations"
-      class="uk-child-width-1-2@m uk-child-width-1-3@l"
-      uk-grid
-    >
+    <ul v-else class="uk-child-width-1-2@m uk-child-width-1-3@l" uk-grid>
       <li v-for="organization in organizations" :key="organization.id">
         <router-link
           :to="`/organizations/${organization.id}`"
