@@ -1,7 +1,23 @@
 <template>
   <div v-if="loading" uk-spinner></div>
-  <section v-else>
-    <pre>{{ JSON.stringify(board, null, 2) }}</pre>
+  <section v-else uk-grid class="uk-grid-small uk-child-width-auto">
+    <section
+      v-for="column in board.columns"
+      :key="column.id"
+      class="uk-width-medium"
+    >
+      <div class="uk-tile uk-tile-muted uk-padding-small uk-border-rounded">
+        <h3>{{ column.name }}</h3>
+        <article
+          v-for="item in column.items"
+          :key="item.id"
+          class="uk-card uk-card-body uk-card-default uk-card-small uk-margin-bottom"
+        >
+          <h5>{{ item.issue.summary }}</h5>
+          <p>{{ item.issue.description }}</p>
+        </article>
+      </div>
+    </section>
   </section>
 </template>
 
