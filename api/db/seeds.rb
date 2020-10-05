@@ -31,7 +31,7 @@ end
 def add_issues_to_column(amount:, column:)
   amount.times do |_num|
     issue = Issue.create(
-      summary: Faker::Company.bs,
+      summary: Faker::Company.bs.capitalize,
       description: Faker::Lorem.paragraph,
       project: column.board.project,
       user_creator: column.user_creator
