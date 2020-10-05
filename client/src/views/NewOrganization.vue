@@ -47,7 +47,7 @@ export default defineComponent({
     const router = useRouter()
     const createOrganizationFields = reactive({
       name: '',
-      userCreatorId: store.state.account.user.id,
+      userCreatorId: store.state.account.user?.id || '',
     })
     const errors = ref<string[]>([])
     const {
@@ -72,7 +72,7 @@ export default defineComponent({
 
       errors.value = []
 
-      router.push(`/organizations/${payload.organization.id}`)
+      router.push(`/organizations/${payload?.organization?.id}`)
     })
 
     return {
