@@ -108,6 +108,20 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: '/organizations/new',
+    name: 'New Organization',
+    meta: {
+      requiresAuth: true,
+    },
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(
+          /* webpackChunkName: "NewOrganization" */ '../views/NewOrganization.vue'
+        ),
+    },
+  },
+  {
     path: '/organizations/:organizationId',
     name: 'Organization',
     props: true,

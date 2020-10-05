@@ -540,6 +540,23 @@ export type User = Node & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
+export type CreateOrganizationMutationVariables = Exact<{
+  fields: CreateOrganizationInput;
+}>;
+
+
+export type CreateOrganizationMutation = (
+  { __typename?: 'Mutation' }
+  & { createOrganization?: Maybe<(
+    { __typename?: 'CreateOrganizationPayload' }
+    & Pick<CreateOrganizationPayload, 'errors'>
+    & { organization?: Maybe<(
+      { __typename?: 'Organization' }
+      & Pick<Organization, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 export type PasswordSignInMutationVariables = Exact<{
   fields: PasswordSignInInput;
 }>;
@@ -710,6 +727,39 @@ export type UserProjectsQuery = (
 );
 
 
+export const CreateOrganizationDocument = gql`
+    mutation createOrganization($fields: CreateOrganizationInput!) {
+  createOrganization(input: $fields) {
+    errors
+    organization {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useCreateOrganizationMutation__
+ *
+ * To run a mutation, you first call `useCreateOrganizationMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrganizationMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useCreateOrganizationMutation({
+ *   variables: {
+ *      fields: // value for 'fields'
+ *   },
+ * });
+ */
+export function useCreateOrganizationMutation(options: VueApolloComposable.UseMutationOptions<CreateOrganizationMutation, CreateOrganizationMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<CreateOrganizationMutation, CreateOrganizationMutationVariables>>) {
+            return VueApolloComposable.useMutation<CreateOrganizationMutation, CreateOrganizationMutationVariables>(CreateOrganizationDocument, options);
+          }
+export type CreateOrganizationMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateOrganizationMutation, CreateOrganizationMutationVariables>;
 export const PasswordSignInDocument = gql`
     mutation passwordSignIn($fields: PasswordSignInInput!) {
   passwordSignIn(input: $fields) {
