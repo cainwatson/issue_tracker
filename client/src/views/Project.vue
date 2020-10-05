@@ -14,7 +14,10 @@
           <span class="uk-margin-small-left" uk-icon="icon: triangle-down" />
         </a>
         <div uk-dropdown="mode: click">
-          <ul class="uk-nav uk-dropdown-nav">
+          <p v-if="project.boards.length === 0" class="uk-margin-remove">
+            No boards have been created.
+          </p>
+          <ul v-else class="uk-nav uk-dropdown-nav">
             <li v-for="board in project.boards" :key="board.id">
               <router-link :to="`/projects/${project.id}/boards/${board.id}`">
                 {{ board.name }}
