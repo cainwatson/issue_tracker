@@ -1,12 +1,14 @@
 <template>
   <article v-if="loading" uk-spinner />
-  <section v-else uk-grid class="uk-grid-small uk-child-width-auto">
+  <div v-else uk-grid class="project-board uk-grid-small uk-flex-nowrap">
     <section
       v-for="column in board.columns"
       :key="column.id"
       class="uk-width-medium"
     >
-      <div class="uk-tile uk-tile-muted uk-padding-small uk-border-rounded">
+      <div
+        class="uk-width-medium uk-tile uk-tile-muted uk-padding-small uk-border-rounded"
+      >
         <h3>{{ column.name }}</h3>
         <article
           v-for="item in column.items"
@@ -18,7 +20,7 @@
         </article>
       </div>
     </section>
-  </section>
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,3 +46,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.project-board {
+  overflow-x: scroll;
+}
+</style>
