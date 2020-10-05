@@ -5,13 +5,17 @@
     <p v-if="organizations.length === 0">
       It looks like you aren't apart of any organizations.
     </p>
-    <ul v-else class="uk-child-width-1-2@m uk-child-width-1-3@l" uk-grid>
+    <ul
+      v-else
+      class="uk-child-width-1-2@m uk-child-width-1-3@l uk-grid-match"
+      uk-grid
+    >
       <li v-for="organization in organizations" :key="organization.id">
         <router-link
           :to="`/organizations/${organization.id}`"
           class="uk-link-toggle uk-link-reset"
         >
-          <article class="uk-card uk-card-default uk-card-muted">
+          <article class="uk-card uk-card-default uk-card-muted uk-height-1-1">
             <div class="uk-padding-small">
               <img
                 :src="organization.photoUrl"
@@ -21,6 +25,17 @@
             <div class="uk-card-body">
               <h1 class="uk-card-title">{{ organization.name }}</h1>
             </div>
+          </article>
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          :to="`/organizations/new`"
+          class="uk-link-toggle uk-link-reset"
+        >
+          <article class="uk-card uk-card-body uk-card-default uk-card-muted">
+            <p class="uk-heading-medium uk-text-center">+</p>
+            <h1 class="uk-card-title">New Organization</h1>
           </article>
         </router-link>
       </li>
