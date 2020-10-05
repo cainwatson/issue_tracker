@@ -2,10 +2,14 @@
   <article v-if="loading" uk-spinner />
   <section v-else>
     <h1 class="uk-margin-medium-bottom">Projects</h1>
-    <project-list
-      :projects="projects"
-      emptyProjectsMessage="It looks like you don't have any projects."
-    />
+    <project-list :projects="projects">
+      <template v-slot:emptyProjectsMessage>
+        <p>
+          It looks like you don't have any projects.
+          <router-link to="/projects/new">Create a new project.</router-link>
+        </p>
+      </template>
+    </project-list>
   </section>
 </template>
 

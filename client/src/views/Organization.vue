@@ -4,10 +4,14 @@
     <h1 class="uk-margin-medium-bottom">{{ organization.name }}</h1>
     <article>
       <h2>Projects</h2>
-      <project-list
-        :projects="organization.projects"
-        emptyProjectsMessage="This organization hasn't created any projects."
-      />
+      <project-list :projects="organization.projects">
+        <template v-slot:emptyProjectsMessage>
+          <p>
+            This organization hasn't created any projects.
+            <router-link to="/projects/new">Create a new project.</router-link>
+          </p>
+        </template>
+      </project-list>
     </article>
   </section>
 </template>

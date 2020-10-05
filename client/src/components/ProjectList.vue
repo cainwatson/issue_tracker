@@ -1,7 +1,5 @@
 <template>
-  <p v-if="projects.length === 0">
-    {{ emptyProjectsMessage }}
-  </p>
+  <slot v-if="projects.length === 0" name="emptyProjectsMessage" />
   <ul uk-grid class="uk-child-width-1-2@m uk-child-width-1-3@l">
     <li v-for="project in projects" :key="project.id">
       <router-link
@@ -26,10 +24,6 @@ export default defineComponent({
     projects: {
       type: Array as PropType<Project[]>,
       default: [],
-    },
-    emptyProjectsMessage: {
-      type: String,
-      default: 'No projects found.',
     },
     setProjectLink: {
       type: Function as PropType<(project: Project) => string>,
