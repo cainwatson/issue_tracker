@@ -557,6 +557,23 @@ export type CreateOrganizationMutation = (
   )> }
 );
 
+export type CreateProjectMutationVariables = Exact<{
+  fields: CreateProjectInput;
+}>;
+
+
+export type CreateProjectMutation = (
+  { __typename?: 'Mutation' }
+  & { createProject?: Maybe<(
+    { __typename?: 'CreateProjectPayload' }
+    & Pick<CreateProjectPayload, 'errors'>
+    & { project?: Maybe<(
+      { __typename?: 'Project' }
+      & Pick<Project, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 export type PasswordSignInMutationVariables = Exact<{
   fields: PasswordSignInInput;
 }>;
@@ -760,6 +777,39 @@ export function useCreateOrganizationMutation(options: VueApolloComposable.UseMu
             return VueApolloComposable.useMutation<CreateOrganizationMutation, CreateOrganizationMutationVariables>(CreateOrganizationDocument, options);
           }
 export type CreateOrganizationMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateOrganizationMutation, CreateOrganizationMutationVariables>;
+export const CreateProjectDocument = gql`
+    mutation createProject($fields: CreateProjectInput!) {
+  createProject(input: $fields) {
+    errors
+    project {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useCreateProjectMutation__
+ *
+ * To run a mutation, you first call `useCreateProjectMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProjectMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useCreateProjectMutation({
+ *   variables: {
+ *      fields: // value for 'fields'
+ *   },
+ * });
+ */
+export function useCreateProjectMutation(options: VueApolloComposable.UseMutationOptions<CreateProjectMutation, CreateProjectMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<CreateProjectMutation, CreateProjectMutationVariables>>) {
+            return VueApolloComposable.useMutation<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, options);
+          }
+export type CreateProjectMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateProjectMutation, CreateProjectMutationVariables>;
 export const PasswordSignInDocument = gql`
     mutation passwordSignIn($fields: PasswordSignInInput!) {
   passwordSignIn(input: $fields) {

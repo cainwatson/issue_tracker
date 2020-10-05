@@ -76,6 +76,18 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: '/projects/new',
+    name: 'New Project',
+    meta: {
+      requiresAuth: true,
+    },
+    components: {
+      ...withSideBar,
+      default: () =>
+        import(/* webpackChunkName: "NewProject" */ '../views/NewProject.vue'),
+    },
+  },
+  {
     path: '/projects/:projectId',
     name: 'Project',
     props: true,

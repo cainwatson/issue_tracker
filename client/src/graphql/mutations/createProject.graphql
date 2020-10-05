@@ -1,0 +1,9 @@
+mutation createProject($fields: CreateProjectInput!) {
+  createProject(input: $fields) {
+    errors
+    project {
+      id
+      name
+    }
+  }
+}
