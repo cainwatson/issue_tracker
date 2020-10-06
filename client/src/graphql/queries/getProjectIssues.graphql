@@ -2,6 +2,7 @@ query getProjectIssues($projectId: ID!) {
   node(id: $projectId) {
     ... on Project {
       id
+      name
       issues {
         id
         createdAt

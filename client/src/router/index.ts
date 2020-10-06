@@ -2,6 +2,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import store from '../store'
 import Home from '../views/Home.vue'
 
+const appName = process.env.APP_NAME || 'Issue Tracker'
+
 const withSideBar = {
   sidebar: () =>
     import(/* webpackChunkName: "SideBar" */ '../components/SideBar.vue'),
@@ -13,6 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: Home,
     meta: {
+      title: appName,
       requiresAuth: false,
     },
   },
@@ -20,6 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/signup',
     name: 'Sign Up',
     meta: {
+      title: `Sign up for ${appName}`,
       requiresAuth: false,
     },
     // route level code-splitting
@@ -32,6 +36,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/signin',
     name: 'Sign In',
     meta: {
+      title: `Sign into ${appName}`,
       requiresAuth: false,
     },
     component: () =>
@@ -41,6 +46,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/dashboard',
     name: 'Dashboard',
     meta: {
+      title: appName,
       requiresAuth: true,
     },
     components: {
@@ -53,6 +59,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/me/projects',
     name: 'My Projects',
     meta: {
+      title: 'Your Projects',
       requiresAuth: true,
     },
     components: {
@@ -65,6 +72,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/me/organizations',
     name: 'My Organizations',
     meta: {
+      title: 'Your Organizations',
       requiresAuth: true,
     },
     components: {
@@ -79,6 +87,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/projects/new',
     name: 'New Project',
     meta: {
+      title: 'Create a new project',
       requiresAuth: true,
     },
     components: {
@@ -123,6 +132,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/organizations/new',
     name: 'New Organization',
     meta: {
+      title: 'Create a new organization',
       requiresAuth: true,
     },
     components: {
@@ -152,6 +162,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/404',
     name: 'Not Found',
     meta: {
+      title: 'Page not found',
       requiresAuth: false,
     },
     components: {
@@ -182,6 +193,12 @@ router.beforeResolve((to, from, next) => {
       },
     })
   }
+  next()
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || appName
+
   next()
 })
 

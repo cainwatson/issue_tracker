@@ -25,19 +25,31 @@
 
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable'
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 import { useGetProjectBoardQuery } from '../generated/graphql'
 
 export default defineComponent({
   name: 'ProjectBoard',
   props: {
+    projectId: String,
     boardId: String,
   },
   setup(props) {
     const { result, loading } = useGetProjectBoardQuery({
+      projectId: props.projectId || '',
       boardId: props.boardId || '',
     })
-    const board = useResult(result, [], data => data.node)
+    const board = useResult(result, null, data => {
+      if (data.board?.__typename === 'Board') {
+        return data.board
+      }
+    })
+
+    watch(board, board => {
+      if (board) {
+        document.title = board.name
+      }
+    })
 
     return {
       loading,
