@@ -1,6 +1,6 @@
 <template>
   <article v-if="loading" uk-spinner />
-  <section v-else>
+  <section v-else-if="organization">
     <h1 class="uk-margin-medium-bottom">{{ organization.name }}</h1>
     <article>
       <h2>Projects</h2>
@@ -34,7 +34,7 @@ export default defineComponent({
     const { result, loading } = useGetOrganizationQuery({
       organizationId: props.organizationId || '',
     })
-    const organization = useResult(result, [], data => data.node)
+    const organization = useResult(result, null, data => data.node)
 
     return {
       loading,

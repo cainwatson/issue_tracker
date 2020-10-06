@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable'
-import { defineComponent } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import { useGetProjectIssuesQuery } from '../generated/graphql'
 
 export default defineComponent({
@@ -43,9 +43,16 @@ export default defineComponent({
     const { result, loading } = useGetProjectIssuesQuery({
       projectId: props.projectId || '',
     })
-    const issues = useResult(result, [], data => {
+    const project = useResult(result, null, data => {
       if (data.node?.__typename === 'Project') {
-        return data.node.issues
+        return data.node
+      }
+    })
+    const issues = computed(() => project.value && project.value.issues)
+
+    watch(project, project => {
+      if (project) {
+        document.title = `${project.name} | Backlog`
       }
     })
 

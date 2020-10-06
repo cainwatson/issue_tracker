@@ -693,7 +693,7 @@ export type GetProjectIssuesQuery = (
   { __typename?: 'Query' }
   & { node?: Maybe<{ __typename?: 'Board' } | { __typename?: 'BoardColumn' } | { __typename?: 'BoardItem' } | { __typename?: 'Issue' } | { __typename?: 'Membership' } | { __typename?: 'Organization' } | { __typename?: 'Profile' } | (
     { __typename?: 'Project' }
-    & Pick<Project, 'id'>
+    & Pick<Project, 'id' | 'name'>
     & { issues: Array<(
       { __typename?: 'Issue' }
       & Pick<Issue, 'id' | 'createdAt' | 'updatedAt' | 'summary' | 'description' | 'number'>
@@ -1049,6 +1049,7 @@ export const GetProjectIssuesDocument = gql`
   node(id: $projectId) {
     ... on Project {
       id
+      name
       issues {
         id
         createdAt

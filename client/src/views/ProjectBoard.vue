@@ -1,6 +1,10 @@
 <template>
   <article v-if="loading" uk-spinner />
-  <div v-else uk-grid class="project-board uk-grid-small uk-flex-nowrap">
+  <div
+    v-else-if="board"
+    uk-grid
+    class="project-board uk-grid-small uk-flex-nowrap"
+  >
     <section
       v-for="column in board.columns"
       :key="column.id"
@@ -31,17 +35,15 @@ import { useGetProjectBoardQuery } from '../generated/graphql'
 export default defineComponent({
   name: 'ProjectBoard',
   props: {
-    projectId: String,
     boardId: String,
   },
   setup(props) {
     const { result, loading } = useGetProjectBoardQuery({
-      projectId: props.projectId || '',
       boardId: props.boardId || '',
     })
     const board = useResult(result, null, data => {
-      if (data.board?.__typename === 'Board') {
-        return data.board
+      if (data.node?.__typename === 'Board') {
+        return data.node
       }
     })
 
