@@ -574,6 +574,23 @@ export type CreateProjectMutation = (
   )> }
 );
 
+export type MoveBoardItemMutationVariables = Exact<{
+  input: MoveBoardItemInput;
+}>;
+
+
+export type MoveBoardItemMutation = (
+  { __typename?: 'Mutation' }
+  & { moveBoardItem?: Maybe<(
+    { __typename?: 'MoveBoardItemPayload' }
+    & Pick<MoveBoardItemPayload, 'errors'>
+    & { item?: Maybe<(
+      { __typename?: 'BoardItem' }
+      & Pick<BoardItem, 'id' | 'columnPosition'>
+    )> }
+  )> }
+);
+
 export type PasswordSignInMutationVariables = Exact<{
   fields: PasswordSignInInput;
 }>;
@@ -810,6 +827,39 @@ export function useCreateProjectMutation(options: VueApolloComposable.UseMutatio
             return VueApolloComposable.useMutation<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, options);
           }
 export type CreateProjectMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateProjectMutation, CreateProjectMutationVariables>;
+export const MoveBoardItemDocument = gql`
+    mutation moveBoardItem($input: MoveBoardItemInput!) {
+  moveBoardItem(input: $input) {
+    errors
+    item {
+      id
+      columnPosition
+    }
+  }
+}
+    `;
+
+/**
+ * __useMoveBoardItemMutation__
+ *
+ * To run a mutation, you first call `useMoveBoardItemMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useMoveBoardItemMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useMoveBoardItemMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useMoveBoardItemMutation(options: VueApolloComposable.UseMutationOptions<MoveBoardItemMutation, MoveBoardItemMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<MoveBoardItemMutation, MoveBoardItemMutationVariables>>) {
+            return VueApolloComposable.useMutation<MoveBoardItemMutation, MoveBoardItemMutationVariables>(MoveBoardItemDocument, options);
+          }
+export type MoveBoardItemMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<MoveBoardItemMutation, MoveBoardItemMutationVariables>;
 export const PasswordSignInDocument = gql`
     mutation passwordSignIn($fields: PasswordSignInInput!) {
   passwordSignIn(input: $fields) {
