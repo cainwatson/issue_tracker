@@ -11919,6 +11919,11 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
+sortablejs@^1.10.2:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.12.0.tgz#ee6d7ece3598c2af0feb1559d98595e5ea37cbd6"
+  integrity sha512-bPn57rCjBRlt2sC24RBsu40wZsmLkSo2XeqG8k6DC1zru5eObQUIPPZAQG7W2SJ8FZQYq+BEJmvuw1Zxb3chqg==
+
 source-list-map@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
@@ -13184,6 +13189,13 @@ vue-demi@latest:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.3.3.tgz#27d7ae33e1d82752418ecfded60e625c5cc81866"
   integrity sha512-/CvXJUp7e41C/jS5ZgflMQgkY2qFX1ZkZq1kYwYH5RCC9gGy1vgvjsldtQlVORaAUt55+k/mQIUnUKNrLosoIw==
+
+vue-draggable-next@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/vue-draggable-next/-/vue-draggable-next-1.0.8.tgz#89a8b347422d20f694f977a125b9af2f67e85b99"
+  integrity sha512-c15YO8HC2Lo2+rWXNoLDwiAFzf4pY5L4ESJsWp526qWeLAf6WjIXYSchmsO6AD0ozFIc+sp6B9zKafpFotxNIQ==
+  dependencies:
+    sortablejs "^1.10.2"
 
 vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.1.0:
   version "7.1.0"
