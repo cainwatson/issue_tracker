@@ -1,0 +1,9 @@
+mutation moveBoardColumn($input: MoveBoardColumnInput!) {
+  moveBoardColumn(input: $input) {
+    errors
+    column {
+      id
+      boardPosition
+    }
+  }
+}

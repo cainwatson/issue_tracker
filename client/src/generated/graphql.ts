@@ -574,6 +574,23 @@ export type CreateProjectMutation = (
   )> }
 );
 
+export type MoveBoardColumnMutationVariables = Exact<{
+  input: MoveBoardColumnInput;
+}>;
+
+
+export type MoveBoardColumnMutation = (
+  { __typename?: 'Mutation' }
+  & { moveBoardColumn?: Maybe<(
+    { __typename?: 'MoveBoardColumnPayload' }
+    & Pick<MoveBoardColumnPayload, 'errors'>
+    & { column?: Maybe<(
+      { __typename?: 'BoardColumn' }
+      & Pick<BoardColumn, 'id' | 'boardPosition'>
+    )> }
+  )> }
+);
+
 export type MoveBoardItemMutationVariables = Exact<{
   input: MoveBoardItemInput;
 }>;
@@ -827,6 +844,39 @@ export function useCreateProjectMutation(options: VueApolloComposable.UseMutatio
             return VueApolloComposable.useMutation<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, options);
           }
 export type CreateProjectMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateProjectMutation, CreateProjectMutationVariables>;
+export const MoveBoardColumnDocument = gql`
+    mutation moveBoardColumn($input: MoveBoardColumnInput!) {
+  moveBoardColumn(input: $input) {
+    errors
+    column {
+      id
+      boardPosition
+    }
+  }
+}
+    `;
+
+/**
+ * __useMoveBoardColumnMutation__
+ *
+ * To run a mutation, you first call `useMoveBoardColumnMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useMoveBoardColumnMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useMoveBoardColumnMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useMoveBoardColumnMutation(options: VueApolloComposable.UseMutationOptions<MoveBoardColumnMutation, MoveBoardColumnMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<MoveBoardColumnMutation, MoveBoardColumnMutationVariables>>) {
+            return VueApolloComposable.useMutation<MoveBoardColumnMutation, MoveBoardColumnMutationVariables>(MoveBoardColumnDocument, options);
+          }
+export type MoveBoardColumnMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<MoveBoardColumnMutation, MoveBoardColumnMutationVariables>;
 export const MoveBoardItemDocument = gql`
     mutation moveBoardItem($input: MoveBoardItemInput!) {
   moveBoardItem(input: $input) {

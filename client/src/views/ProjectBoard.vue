@@ -1,7 +1,9 @@
 <template>
   <article v-if="loading" uk-spinner />
-  <div
+  <draggable
     v-else-if="board"
+    :list="board.columns"
+    @change="handleColumnDrag"
     uk-grid
     class="project-board uk-grid-small uk-flex-nowrap"
   >
@@ -11,22 +13,25 @@
       :column="column"
       :handleIssueDrag="handleIssueDrag"
     />
-  </div>
+  </draggable>
 </template>
 
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable'
-import { defineComponent, watch } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
+import { VueDraggableNext as Draggable } from 'vue-draggable-next'
+import BoardColumn from './ProjectBoard/BoardColumn.vue'
 import {
   useGetProjectBoardQuery,
+  useMoveBoardColumnMutation,
   useMoveBoardItemMutation,
 } from '../generated/graphql'
-import BoardColumn from './ProjectBoard/BoardColumn.vue'
 
 export default defineComponent({
   name: 'ProjectBoard',
   components: {
     BoardColumn,
+    Draggable,
   },
   props: {
     boardId: String,
@@ -41,10 +46,33 @@ export default defineComponent({
       }
     })
     const {
-      loading: saving,
+      loading: loadingMoveBoardColumnMutation,
+      mutate: moveBoardColumnMutation,
+    } = useMoveBoardColumnMutation({})
+    const {
+      loading: loadingMoveBoardItemMutation,
       mutate: moveBoardItemMutation,
     } = useMoveBoardItemMutation({})
+    const updating = computed(
+      () => loadingMoveBoardColumnMutation || loadingMoveBoardItemMutation,
+    )
 
+    const handleColumnDrag = event => {
+      if (event.moved) {
+        const { element: column, newIndex } = event.moved
+
+        moveBoardColumnMutation(
+          {
+            input: {
+              columnId: column.id,
+              position: newIndex,
+            },
+          },
+          { awaitRefetchQueries: true },
+        )
+        refetchBoard()
+      }
+    }
     const handleIssueDrag = event => {
       if (event.moved) {
         const { element, newIndex } = event.moved
@@ -70,8 +98,9 @@ export default defineComponent({
 
     return {
       loading,
-      saving,
+      updating,
       board,
+      handleColumnDrag,
       handleIssueDrag,
     }
   },
