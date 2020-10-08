@@ -1,7 +1,7 @@
 <template>
   <div class="uk-width-medium">
     <section
-      class="uk-width-medium uk-tile uk-tile-muted uk-padding-small uk-border-rounded"
+      class="uk-width-medium uk-height-1-1 uk-tile uk-tile-muted uk-padding-small uk-border-rounded"
     >
       <h3>{{ column.name }}</h3>
       <draggable
@@ -10,7 +10,7 @@
         tag="ol"
         class="uk-list"
       >
-        <li v-for="item in column.items" :key="item.id">
+        <li v-for="item in column.items" :key="item.id" class="uk-drag">
           <article
             class="uk-card uk-card-body uk-card-default uk-card-small uk-margin-bottom"
           >

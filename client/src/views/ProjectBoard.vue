@@ -1,19 +1,21 @@
 <template>
   <article v-if="loading" uk-spinner />
-  <draggable
-    v-else-if="board"
-    :list="board.columns"
-    @change="handleColumnDrag"
-    uk-grid
-    class="project-board uk-grid-small uk-flex-nowrap"
-  >
-    <board-column
-      v-for="column in board.columns"
-      :key="column.id"
-      :column="column"
-      :handleIssueDrag="handleIssueDrag"
-    />
-  </draggable>
+  <div v-else-if="board" class="project-board">
+    <draggable
+      :list="board.columns"
+      @change="handleColumnDrag"
+      uk-grid
+      class="uk-grid-small uk-flex-nowrap uk-margin-bottom"
+    >
+      <board-column
+        v-for="column in board.columns"
+        :key="column.id"
+        :column="column"
+        :handleIssueDrag="handleIssueDrag"
+        class="uk-drag"
+      />
+    </draggable>
+  </div>
 </template>
 
 <script lang="ts">
