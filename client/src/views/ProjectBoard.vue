@@ -5,48 +5,28 @@
     uk-grid
     class="project-board uk-grid-small uk-flex-nowrap"
   >
-    <section
+    <board-column
       v-for="column in board.columns"
       :key="column.id"
-      class="uk-width-medium"
-    >
-      <div
-        class="uk-width-medium uk-tile uk-tile-muted uk-padding-small uk-border-rounded"
-      >
-        <h3>{{ column.name }}</h3>
-        <draggable
-          v-model="column.items"
-          @change="handleIssueDrag"
-          tag="ol"
-          class="uk-list"
-        >
-          <li v-for="item in column.items" :key="item.id">
-            <article
-              class="uk-card uk-card-body uk-card-default uk-card-small uk-margin-bottom"
-            >
-              <h5>{{ item.issue.summary }}</h5>
-              <p>{{ item.issue.description }}</p>
-            </article>
-          </li>
-        </draggable>
-      </div>
-    </section>
+      :column="column"
+      :handleIssueDrag="handleIssueDrag"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable'
 import { defineComponent, watch } from 'vue'
-import { VueDraggableNext } from 'vue-draggable-next'
 import {
   useGetProjectBoardQuery,
   useMoveBoardItemMutation,
 } from '../generated/graphql'
+import BoardColumn from './ProjectBoard/BoardColumn.vue'
 
 export default defineComponent({
   name: 'ProjectBoard',
   components: {
-    draggable: VueDraggableNext,
+    BoardColumn,
   },
   props: {
     boardId: String,
