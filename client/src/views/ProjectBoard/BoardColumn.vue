@@ -1,6 +1,6 @@
 <template>
-  <section class="uk-width-medium">
-    <div
+  <div class="uk-width-medium">
+    <section
       class="uk-width-medium uk-tile uk-tile-muted uk-padding-small uk-border-rounded"
     >
       <h3>{{ column.name }}</h3>
@@ -19,8 +19,8 @@
           </article>
         </li>
       </draggable>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
@@ -28,16 +28,16 @@ import { defineComponent, PropType } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { BoardColumn } from '../../generated/graphql'
 
-export type HandleIssueDragEvent =
+export type HandleDragEvent<E> =
   | Event
   | {
       moved: {
-        element: BoardColumn
+        element: E
         newIndex: number
         oldIndex: number
       }
     }
-export type HandleIssueDragCallback = (event: HandleIssueDragEvent) => void
+export type HandleDragCallback<E> = (event: HandleDragEvent<E>) => void
 
 export default defineComponent({
   name: 'BoardColumn',
@@ -50,7 +50,7 @@ export default defineComponent({
       required: true,
     },
     handleIssueDrag: {
-      type: Function as PropType<HandleIssueDragCallback>,
+      type: Function as PropType<HandleDragCallback<BoardColumn>>,
       default: () => {
         // noop
       },

@@ -1,16 +1,14 @@
 <template>
   <main>
-    <article class="uk-position-cover" v-if="loadingSignIn">
+    <article v-if="loadingSignIn" class="uk-position-cover">
       <div class="uk-position-center">
-        <div uk-spinner="ratio: 3"></div>
+        <div uk-spinner="ratio: 3" />
         <p class="uk-text-center">Loading...</p>
       </div>
     </article>
     <div v-else class="uk-flex">
       <router-view name="sidebar" />
-      <div class="uk-width-expand	uk-padding">
-        <router-view />
-      </div>
+      <router-view class="uk-width-expand	uk-padding" />
     </div>
   </main>
 </template>

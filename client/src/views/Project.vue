@@ -1,6 +1,6 @@
 <template>
   <article v-if="loading" uk-spinner />
-  <section v-else-if="project">
+  <article v-else-if="project">
     <h1 class="uk-margin-medium-bottom">{{ project.name }}</h1>
     <ul uk-tab>
       <li :class="{ 'uk-active': isActiveTab(Tab.Backlog) }">
@@ -27,8 +27,10 @@
         </div>
       </li>
     </ul>
-    <router-view />
-  </section>
+    <section>
+      <router-view />
+    </section>
+  </article>
 </template>
 
 <script lang="ts">
