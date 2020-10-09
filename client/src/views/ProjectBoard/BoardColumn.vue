@@ -5,10 +5,11 @@
     >
       <h3>{{ column.name }}</h3>
       <draggable
+        group="board-item"
         :list="column.items"
         @change="handleIssueDrag"
         tag="ol"
-        class="uk-list"
+        class="uk-list uk-height-1-1"
       >
         <li v-for="item in column.items" :key="item.id" class="uk-drag">
           <article
@@ -34,6 +35,18 @@ export type HandleDragEvent<E> =
       moved: {
         element: E
         newIndex: number
+        oldIndex: number
+      }
+    }
+  | {
+      added: {
+        element: E
+        newIndex: number
+      }
+    }
+  | {
+      removed: {
+        element: E
         oldIndex: number
       }
     }

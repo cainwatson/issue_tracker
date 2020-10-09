@@ -20,10 +20,12 @@
 
 <script lang="ts">
 import { useResult } from '@vue/apollo-composable'
-import { computed, defineComponent, watch } from 'vue'
+import { defineComponent, watch } from 'vue'
 import { VueDraggableNext as Draggable } from 'vue-draggable-next'
 import BoardColumn from './ProjectBoard/BoardColumn.vue'
 import {
+  GetProjectBoardDocument,
+  namedOperations,
   useGetProjectBoardQuery,
   useMoveBoardColumnMutation,
   useMoveBoardItemMutation,
@@ -39,7 +41,8 @@ export default defineComponent({
     boardId: String,
   },
   setup(props) {
-    const { result, loading, refetch: refetchBoard } = useGetProjectBoardQuery({
+    GetProjectBoardDocument
+    const { result, loading } = useGetProjectBoardQuery({
       boardId: props.boardId || '',
     })
     const board = useResult(result, null, data => {
@@ -47,17 +50,12 @@ export default defineComponent({
         return data.node
       }
     })
-    const {
-      loading: loadingMoveBoardColumnMutation,
-      mutate: moveBoardColumnMutation,
-    } = useMoveBoardColumnMutation({})
-    const {
-      loading: loadingMoveBoardItemMutation,
-      mutate: moveBoardItemMutation,
-    } = useMoveBoardItemMutation({})
-    const updating = computed(
-      () => loadingMoveBoardColumnMutation || loadingMoveBoardItemMutation,
-    )
+    const refetchBoardMutationOptions = {
+      awaitRefetchQueries: true,
+      refetchQueries: [namedOperations.Query.getProjectBoard],
+    }
+    const { mutate: moveBoardColumnMutation } = useMoveBoardColumnMutation({})
+    const { mutate: moveBoardItemMutation } = useMoveBoardItemMutation({})
 
     const handleColumnDrag = event => {
       if (event.moved) {
@@ -70,15 +68,13 @@ export default defineComponent({
               position: newIndex,
             },
           },
-          { awaitRefetchQueries: true },
+          refetchBoardMutationOptions,
         )
-        refetchBoard()
       }
     }
     const handleIssueDrag = event => {
       if (event.moved) {
         const { element, newIndex } = event.moved
-
         moveBoardItemMutation(
           {
             input: {
@@ -86,9 +82,29 @@ export default defineComponent({
               position: newIndex,
             },
           },
-          { awaitRefetchQueries: true },
+          refetchBoardMutationOptions,
         )
-        refetchBoard()
+      } else if (event.added) {
+        const { element, newIndex } = event.added
+        const newColumn = board.value?.columns.find(column => {
+          return column.items[newIndex]?.id === element.id
+        })
+
+        if (!newColumn) {
+          console.error('Failed to locate column item moved to.')
+          return
+        }
+
+        moveBoardItemMutation(
+          {
+            input: {
+              itemId: element.id,
+              columnId: newColumn.id,
+              position: newIndex,
+            },
+          },
+          refetchBoardMutationOptions,
+        )
       }
     }
 
@@ -100,7 +116,6 @@ export default defineComponent({
 
     return {
       loading,
-      updating,
       board,
       handleColumnDrag,
       handleIssueDrag,
