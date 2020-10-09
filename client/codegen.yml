@@ -7,5 +7,6 @@ generates:
       - 'typescript'
       - 'typescript-operations'
       - 'typescript-vue-apollo'
+      - 'named-operations-object'
     config:
       vueCompositionApiImportFrom: vue
