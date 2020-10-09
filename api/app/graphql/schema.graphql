@@ -272,6 +272,7 @@ input MoveBoardItemInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+  columnId: ID
   itemId: ID!
   position: Int!
 }
