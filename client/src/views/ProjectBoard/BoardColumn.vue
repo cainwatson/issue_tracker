@@ -12,12 +12,7 @@
         class="uk-list uk-height-1-1"
       >
         <li v-for="item in column.items" :key="item.id" class="uk-drag">
-          <article
-            class="uk-card uk-card-body uk-card-default uk-card-small uk-margin-bottom"
-          >
-            <h5>{{ item.issue.summary }}</h5>
-            <p>{{ item.issue.description }}</p>
-          </article>
+          <board-item :item="item" />
         </li>
       </draggable>
     </section>
@@ -26,7 +21,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { VueDraggableNext } from 'vue-draggable-next'
+import { VueDraggableNext as Draggable } from 'vue-draggable-next'
+import BoardItem from './BoardItem.vue'
 import { BoardColumn } from '../../generated/graphql'
 
 export type HandleDragEvent<E> =
@@ -55,7 +51,8 @@ export type HandleDragCallback<E> = (event: HandleDragEvent<E>) => void
 export default defineComponent({
   name: 'BoardColumn',
   components: {
-    draggable: VueDraggableNext,
+    BoardItem,
+    Draggable,
   },
   props: {
     column: {
