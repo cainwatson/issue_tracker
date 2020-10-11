@@ -71,7 +71,7 @@ Once those are installed, we'll need to do a few setup tasks. Make sure to run a
   - The GraphQL API is located at: [/graphql](http://localhost:3000/graphql)
   - A GUI for the API is located at: [/graphql-playground](http://localhost:3000/graphql-playground)
 
-  _Tip: All changes to the code are hot-reloaded, so you don't need to restart the server every time you make a change._
+  _Tip: All changes to the code are hot-reloaded, so you won't need to restart the server every time you make a change._
 
 - And run the tests from the `test/` directory by running:
 
