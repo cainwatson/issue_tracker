@@ -331,7 +331,7 @@ type Mutation {
   moveBoardColumn(input: MoveBoardColumnInput!): MoveBoardColumnPayload
 
   """
-  Move an item in a column to a new position.
+  Move an item to a new position or a new column.
   """
   moveBoardItem(input: MoveBoardItemInput!): MoveBoardItemPayload
 
