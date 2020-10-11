@@ -45,6 +45,16 @@ def add_issues_to_column(amount:, column:)
   end
 end
 
+Profiles::Profile.create(
+  user: Accounts::User.create(
+    email: 'test@test.test',
+    password: 'password'
+  ),
+  first_name: 'test',
+  last_name: 'tester',
+  photo_url: Faker::Avatar.image
+)
+
 5.times do |_num|
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
